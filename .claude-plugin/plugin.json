@@ -1,7 +1,7 @@
 {
   "name": "project-optimizer",
-  "description": "Claude Code project optimization toolkit - CLAUDE.md templates, slash commands, and workflow automation for new/developing/production projects",
-  "version": "1.0.1",
+  "description": "Self-driving Claude Code enhancement - intelligent behavior rules, context protection, and task management through CLAUDE.md",
+  "version": "2.0.0",
   "author": {
     "name": "michaelyufeng"
   },

@@ -2,70 +2,92 @@
 description: Save progress checkpoint for long tasks or context switching
 ---
 
-# 任务检查点
+# Save Checkpoint
 
-记录当前任务进展，以便上下文切换或新对话时恢复。
+Save current progress for session continuity. Creates human-readable `CHECKPOINT.md` and optionally updates `.claude/state.json`.
 
-## 当前状态
+## When to Use
 
-请输出以下信息到 `CHECKPOINT.md`：
+- Long conversation (15+ turns)
+- Before switching tasks
+- Complex task in progress
+- Context feels heavy
+- User requests save
+
+## Output Format
+
+Create/update `CHECKPOINT.md`:
 
 ```markdown
-# 任务检查点 - [时间戳]
+# Checkpoint - [ISO timestamp]
 
-## 📋 任务概述
-$ARGUMENTS
+## Task
+$ARGUMENTS (or current task if not specified)
 
-## ✅ 已完成
-- [列出已完成的步骤]
-
-## 🔄 进行中
-- [当前正在做什么]
-- 当前文件：
-- 当前行号：
-
-## 📝 待完成
-- [列出剩余步骤]
-
-## 🧠 上下文
-### 关键决策
-- [记录重要的设计决策]
-
-### 遇到的问题
-- [问题描述] → [解决方案/待解决]
-
-### 相关文件
-- `file1.ts` - [为什么重要]
-- `file2.ts` - [为什么重要]
-
-## 🔗 恢复命令
-下次继续时，运行：
-\`\`\`bash
-# 查看检查点
-cat CHECKPOINT.md
-
-# 查看相关文件
-cat [关键文件路径]
-\`\`\`
-
-## ⚠️ 注意事项
-- [任何需要记住的事项]
+## Progress
+```
+[T1] [x] [Completed subtask 1]
+[T2] [x] [Completed subtask 2]
+[T3] [ ] [Current subtask] <- IN PROGRESS
+[T4] [ ] [Pending subtask]
 ```
 
-## 使用场景
+Overall: [X%] complete
 
-### 上下文将满时
-当感觉上下文快用完了，运行此命令保存进度。
+## Current Work
+- Working on: [specific current task]
+- File: [current file path]
+- Status: [what's done, what's next]
 
-### 需要切换任务时
-保存当前进度，方便后续恢复。
+## Key Decisions
+| Decision | Reason |
+|----------|--------|
+| [choice made] | [why this choice] |
 
-### 长任务分段时
-定期保存检查点，防止进度丢失。
+## Modified Files
+- `path/file1.ts` - [what changed]
+- `path/file2.ts` - [what changed]
 
-## 恢复流程
+## Open Questions
+- [ ] [unresolved question]
 
-在新对话中：
-1. 读取 `CHECKPOINT.md`
-2. 了解任务背景
-3. 从"进行中"继续
+## Next Steps
+1. [immediate next action]
+2. [following action]
+
+## Resume Instructions
+To continue:
+1. Read this file
+2. Check modified files above
+3. Continue from: [exact resume point]
+```
+
+## State Update (Optional)
+
+If `.claude/` directory exists, also update `.claude/state.json`:
+
+```json
+{
+  "lastUpdated": "[ISO timestamp]",
+  "task": {
+    "name": "[task]",
+    "progress": [X],
+    "currentSubtask": "[subtask]"
+  },
+  "modifiedFiles": ["path/file1.ts", "path/file2.ts"],
+  "decisions": [{"decision": "[what]", "reason": "[why]"}]
+}
+```
+
+## After Saving
+
+Display confirmation:
+```
+Checkpoint saved!
+
+File: CHECKPOINT.md
+Progress: [X%]
+Next: [resume point]
+
+Safe to close session.
+```

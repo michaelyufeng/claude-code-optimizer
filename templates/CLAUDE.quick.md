@@ -1,44 +1,63 @@
 # {{PROJECT_NAME}}
 
-> ⚡ 快速模式 | {{DATE}}
+> Mode: Quick | Created: {{DATE}}
 
-## 项目简介
+## Project Overview
 
 {{PROJECT_DESCRIPTION}}
 
-## 技术栈
+## Tech Stack
 
-- 语言: {{LANGUAGE}}
-- 框架: {{FRAMEWORK}}
-- 其他: {{OTHER_TECH}}
+- Language: {{LANGUAGE}}
+- Framework: {{FRAMEWORK}}
+- Other: {{OTHER_TECH}}
 
-## 开发规范
-
-- 使用 {{CODE_STYLE}} 代码风格
-- 命名采用 {{NAMING_CONVENTION}}
-
-## 常用命令
+## Commands
 
 ```bash
-# 开发
-{{DEV_COMMAND}}
-
-# 测试
-{{TEST_COMMAND}}
-
-# 构建
-{{BUILD_COMMAND}}
+{{DEV_COMMAND}}      # Development
+{{TEST_COMMAND}}     # Test
+{{BUILD_COMMAND}}    # Build
 ```
 
-## 当前任务
+## Coding Standards
+
+- Style: {{CODE_STYLE}}
+- Naming: {{NAMING_CONVENTION}}
+
+## Current Tasks
 
 - [ ] {{TASK_1}}
 - [ ] {{TASK_2}}
 
-## 注意事项
+## Constraints
 
 - {{CONSTRAINT_1}}
 - {{CONSTRAINT_2}}
 
 ---
-<!-- ⚡ 快速模式 | /project-optimizer:upgrade 升级到更多功能 -->
+
+## Self-Driving Rules (Quick Mode)
+
+### Session Start
+- Check if `CHECKPOINT.md` exists
+- If exists and recent, briefly mention: "Detected previous progress. Continue or start fresh?"
+
+### During Work
+- For simple tasks: execute directly
+- For complex tasks (5+ files): suggest using a checklist
+- After long conversations (15+ turns): remind to save progress
+
+### Progress Saving
+When saving progress, create/update `CHECKPOINT.md`:
+```markdown
+# Checkpoint - [timestamp]
+## Task: [current task]
+## Completed: [list]
+## In Progress: [current work]
+## Next Steps: [remaining]
+## Key Files: [modified files]
+```
+
+---
+<!-- Quick Mode | Run /project-optimizer:upgrade for more features -->

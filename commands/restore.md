@@ -2,333 +2,133 @@
 description: Restore context and state from checkpoint for session continuity
 ---
 
-# 恢复检查点 (Memory System)
+# Restore Checkpoint
 
-## 功能说明
+Restore previous session's context and progress. This command is typically called automatically at session start based on CLAUDE.md rules.
 
-从检查点恢复上下文、状态和进度，实现跨会话的无缝衔接。
+## Automatic Detection
 
-## 恢复流程
+At session start, check for existing state:
 
-### 1. 检测检查点
+1. Check `CHECKPOINT.md` in project root
+2. Check `.claude/state.json` if exists
+3. If found, display recovery prompt
 
-启动时自动检测：
-
-```markdown
-## 检查点检测
-
-检查 `.claude/PROJECT_MEMORY/state.json`:
-
-如果存在最近的检查点：
-```
-🔔 检测到未完成的项目状态！
-
-📋 上次会话信息：
-- 时间: 2024-12-15 14:30:22
-- 阶段: 架构阶段 (4/9)
-- 任务: 设计用户认证 API (40% 完成)
-
-是否恢复上次的上下文？
-
-[1] ✅ 恢复并继续 (推荐)
-[2] 📋 查看详情后决定
-[3] 🆕 从头开始（保留检查点）
-[4] 🗑️ 清除检查点并重新开始
-```
+## Recovery Prompt
 
 ```
+Previous session detected!
 
-### 2. 加载检查点
+Last activity: [time ago]
+Task: [task name]
+Progress: [X%] ([completed]/[total] subtasks)
 
-```markdown
-## 加载检查点
+Current subtask: [subtask name]
+Status: [in progress / blocked / etc.]
 
-### 读取检查点文件
-从 `.claude/PROJECT_MEMORY/checkpoints/[checkpoint_id].json` 加载
-
-### 恢复项目状态
-- 项目类型
-- 当前阶段
-- 阶段进度
-- Phase 完成状态
-
-### 恢复任务状态
-- 当前任务
-- 待完成任务
-- 已完成任务
-
-### 恢复上下文
-- 关键决策
-- 待确认问题
-- 用户偏好
-- 最近修改的文件
+Actions:
+[1] Resume work (recommended)
+[2] View full details
+[3] Start fresh (keep checkpoint)
 ```
 
-### 3. 验证一致性
+## Resume Flow
 
-```markdown
-## 一致性验证
+When user chooses to resume:
 
-检查文件系统与检查点的一致性：
+1. **Read CHECKPOINT.md**
+   - Parse progress status
+   - Load key decisions
+   - Note modified files
 
-### 文件变更检测
-```bash
-# 检查保存后是否有文件变更
-git status --porcelain
-```
+2. **Load Context**
+   - Read modified files mentioned
+   - Understand current state
+   - Load any open questions
 
-### 状态同步
-| 检查项 | 检查点状态 | 当前状态 | 一致性 |
-|--------|------------|----------|--------|
-| PROJECT_STATE.json | ✓ | ✓ | ✅ |
-| docs/API.md | 已修改 | 已修改 | ✅ |
-| CLAUDE.md | v1.2 | v1.2 | ✅ |
+3. **Display Summary**
+   ```
+   Context restored!
 
-### 如果不一致
-```
-⚠️ 检测到文件变更！
+   Task: [task]
+   Progress: [X%]
 
-以下文件在检查点保存后被修改：
-- src/routes/auth.ts (外部修改)
+   Resuming from: [exact point]
 
-选项：
-[1] 使用检查点版本 (忽略外部修改)
-[2] 使用当前版本 (更新检查点)
-[3] 手动合并
-```
-```
+   Key context:
+   - [decision 1]
+   - [decision 2]
 
-### 4. 重建上下文
+   Ready to continue. What would you like to do?
+   ```
 
-```markdown
-## 上下文重建
+## View Details
 
-### 注入恢复的上下文
-
-恢复后，系统会自动加载以下信息：
-
-1. **项目背景**
-   - 项目类型和当前阶段
-   - 已完成的工作摘要
-   - 技术栈和架构决策
-
-2. **任务上下文**
-   - 当前正在进行的任务
-   - 任务的完成进度
-   - 相关文件和代码
-
-3. **对话历史摘要**
-   - 关键讨论点
-   - 用户偏好
-   - 待解决问题
-
-4. **关键决策**
-   - 已做出的技术决策
-   - 决策理由
-   - 相关影响
-```
-
----
-
-## 恢复输出
-
-### 完整恢复报告
+When user chooses "View full details":
 
 ```
-🔄 上下文已恢复！
+Full Checkpoint Details
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Task: [original task]
 
-📋 项目状态：
-┌─────────────────────────────────┐
-│ 项目类型: 🆕 全新项目           │
-│ 当前阶段: 架构阶段 (4/9)        │
-│ 阶段进度: ████████░░ 65%        │
-└─────────────────────────────────┘
+Completed:
+- [x] [subtask 1]
+- [x] [subtask 2]
 
-📊 进度概览：
-✓ 研究 → ✓ 规划 → ✓ Gate1 → 🏗️ 架构 → ○ 原型 → ○ Gate2 → ○ 后端 → ○ 集成 → ○ 输出
-                              ↑
-                            当前
+In Progress:
+- [ ] [subtask 3] (60%)
 
-📝 当前任务：
-┌─────────────────────────────────┐
-│ 任务: 设计用户认证 API          │
-│ 进度: ████░░░░░░ 40%            │
-│ 状态: 进行中                     │
-└─────────────────────────────────┘
+Pending:
+- [ ] [subtask 4]
+- [ ] [subtask 5]
 
-🧠 关键上下文：
-- 技术栈: TypeScript + Hono + Drizzle
-- 认证方案: JWT (已确定)
-- 待确认: OAuth2.0 支持范围
+Key Decisions:
+| Decision | Reason |
+|----------|--------|
+| [choice] | [why]  |
 
-📁 相关文件：
-- docs/API.md (上次修改)
-- docs/ARCHITECTURE.md
+Modified Files:
+- `file1.ts` - [changes]
+- `file2.ts` - [changes]
 
-❓ 待解决问题：
-1. 是否需要支持 OAuth2.0？
-2. Token 过期时间设置多长？
+Open Questions:
+- [question 1]
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Resume from: [specific point]
 
-✅ 已准备好继续工作！
-
-💡 建议下一步：
-继续完成 API 设计，运行 /project-optimizer:architecture
+[Resume] [Start Fresh]
 ```
 
----
+## Start Fresh
 
-## 恢复选项
-
-### 命令参数
-
-```markdown
-## 恢复命令选项
-
-### 基本恢复
-/project-optimizer:restore
-
-### 恢复指定检查点
-/project-optimizer:restore --checkpoint cp_20241215_143022
-
-### 查看可用检查点
-/project-optimizer:restore --list
-
-### 恢复但不加载任务
-/project-optimizer:restore --state-only
-
-### 完整恢复（包含详细上下文）
-/project-optimizer:restore --full
-```
-
-### 检查点列表
+When user chooses "Start fresh":
 
 ```
-📋 可用检查点：
+Starting fresh session.
 
-| # | ID | 时间 | 阶段 | 描述 |
-|---|-----|------|------|------|
-| 1 | cp_20241215_143022 | 12-15 14:30 | 架构 | 完成认证设计 |
-| 2 | cp_20241215_120015 | 12-15 12:00 | Gate1 | 通过规划审核 |
-| 3 | cp_20241214_180033 | 12-14 18:00 | 规划 | 完成 PRD |
+Note: Previous checkpoint preserved at CHECKPOINT.md
+You can restore it later with /restore
 
-输入数字选择检查点，或输入 'latest' 使用最新的
+What would you like to work on?
 ```
 
----
+## Manual Restore
 
-## 自动恢复
+User can also call `/restore` manually anytime:
 
-### 新会话自动检测
-
-```markdown
-## 自动恢复机制
-
-当新会话开始时：
-
-1. **检查项目状态**
-   - 读取 .claude/PROJECT_MEMORY/state.json
-   - 检查是否有未完成的工作
-
-2. **自动提示恢复**
-   - 如果检测到检查点，自动提示用户
-   - 显示上次工作摘要
-
-3. **一键恢复**
-   - 用户确认后立即恢复上下文
-   - 无需手动运行命令
+```
+/restore           # Restore from latest checkpoint
+/restore --list    # List available checkpoints
+/restore --full    # Restore with full details
 ```
 
-### 配置自动恢复
+## No Checkpoint Found
 
-在 `.claude/PROJECT_MEMORY/config.json`:
+If no checkpoint exists:
 
-```json
-{
-  "autoRestore": {
-    "enabled": true,
-    "promptOnStart": true,
-    "autoLoadLatest": false,
-    "maxCheckpointAge": "7d"
-  }
-}
 ```
+No checkpoint found.
 
----
-
-## 部分恢复
-
-### 选择性恢复
-
-```markdown
-## 部分恢复选项
-
-不需要恢复全部内容时：
-
-### 仅恢复状态
-/project-optimizer:restore --state-only
-- 恢复项目阶段和进度
-- 不恢复任务和上下文
-
-### 仅恢复决策
-/project-optimizer:restore --decisions-only
-- 恢复关键决策记录
-- 不恢复任务状态
-
-### 恢复到特定阶段
-/project-optimizer:restore --to-phase architecture
-- 恢复到指定阶段的状态
-- 清除后续阶段的数据
-```
-
----
-
-## 错误处理
-
-### 常见问题
-
-```markdown
-## 恢复失败处理
-
-### 检查点损坏
-```
-❌ 检查点文件损坏！
-
-文件: cp_20241215_143022.json
-错误: JSON 解析失败
-
-建议：
-1. 尝试恢复上一个检查点
-2. 运行 /project-optimizer:restore --list 查看其他检查点
-3. 如果全部损坏，从 PROJECT_STATE.json 重建
-```
-
-### 版本不兼容
-```
-⚠️ 检查点版本不兼容！
-
-检查点版本: 0.8
-当前版本: 1.0
-
-选项：
-[1] 尝试升级转换
-[2] 仅恢复兼容部分
-[3] 放弃恢复
-```
-
-### 文件缺失
-```
-⚠️ 部分文件缺失！
-
-以下文件在检查点中记录，但当前不存在：
-- docs/API.md (已删除)
-
-选项：
-[1] 继续恢复（忽略缺失文件）
-[2] 从检查点恢复文件
-[3] 取消恢复
-```
+No previous session data available.
+Ready for new work!
 ```

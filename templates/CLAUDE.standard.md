@@ -1,88 +1,94 @@
 # {{PROJECT_NAME}}
 
-> 📋 标准模式 | {{DATE}} | v1.0.0
+> Mode: Standard | {{DATE}} | v1.0.0
 
-## 项目概述
+## Overview
 
 {{PROJECT_DESCRIPTION}}
 
-**项目类型**: {{PROJECT_TYPE}}
-**预计规模**: {{PROJECT_SCALE}}
+**Type**: {{PROJECT_TYPE}} | **Scale**: {{PROJECT_SCALE}}
 
-## 技术栈
+## Tech Stack
 
-| 类型 | 技术 |
-|------|------|
-| 语言 | {{LANGUAGE}} |
-| 框架 | {{FRAMEWORK}} |
-| 数据库 | {{DATABASE}} |
-| 部署 | {{DEPLOYMENT}} |
+| Category | Technology |
+|----------|------------|
+| Language | {{LANGUAGE}} |
+| Framework | {{FRAMEWORK}} |
+| Database | {{DATABASE}} |
 
-## 项目结构
+## Structure
 
 ```
 {{PROJECT_NAME}}/
-├── src/              # 源代码
-├── tests/            # 测试文件
-├── docs/             # 文档
-└── ...
+├── src/           # Source code
+├── tests/         # Tests
+└── docs/          # Documentation
 ```
 
-## 开发规范
-
-### 代码风格
-- {{CODE_STYLE_RULE_1}}
-- {{CODE_STYLE_RULE_2}}
-
-### 命名规范
-- 文件: {{FILE_NAMING}}
-- 变量: {{VAR_NAMING}}
-- 函数: {{FUNC_NAMING}}
-
-### Git 规范
-- 分支: `feature/xxx`, `fix/xxx`, `hotfix/xxx`
-- 提交: `feat:`, `fix:`, `docs:`, `refactor:`
-
-## 常用命令
+## Commands
 
 ```bash
-# 安装依赖
-{{INSTALL_COMMAND}}
-
-# 开发环境
-{{DEV_COMMAND}}
-
-# 运行测试
-{{TEST_COMMAND}}
-
-# 构建生产
-{{BUILD_COMMAND}}
+{{DEV_COMMAND}}       # Development
+{{TEST_COMMAND}}      # Run tests
+{{BUILD_COMMAND}}     # Build
 ```
 
-## 当前状态
+## Coding Standards
 
-- **阶段**: 开发中
-- **进度**: 0%
+- Style: {{CODE_STYLE}}
+- Files: {{FILE_NAMING}} | Variables: {{VAR_NAMING}}
+- Git: `feat:`, `fix:`, `docs:`, `refactor:`
 
-## 任务清单
+## Current Tasks
 
-### 进行中
 - [ ] {{CURRENT_TASK}}
-
-### 待完成
 - [ ] {{TODO_1}}
-- [ ] {{TODO_2}}
 
-## 注意事项
+## Constraints
 
-### 必须遵守 (MUST)
-- {{MUST_RULE_1}}
-
-### 建议遵守 (SHOULD)
-- {{SHOULD_RULE_1}}
-
-### 偏好 (PREFER)
-- {{PREFER_RULE_1}}
+**MUST**: {{MUST_RULE_1}}
+**SHOULD**: {{SHOULD_RULE_1}}
 
 ---
-<!-- 📋 标准模式 | /project-optimizer:upgrade 升级到完整模式 -->
+
+## Self-Driving Rules (Standard Mode)
+
+### Session Start (MUST)
+Check `.claude/state.json` and `CHECKPOINT.md`. If unfinished work exists:
+```
+Previous session: [task] | Progress: [X%] | Last: [time]
+[Resume] [Details] [Fresh Start]
+```
+
+### Task Assessment (MUST)
+Evaluate complexity for new tasks:
+- **S** (single file, <50 lines): Execute directly
+- **M** (2-5 files, 50-200 lines): Suggest checklist
+- **L** (5+ files, 200+ lines): Recommend breakdown
+- **XL** (15+ files): Require breakdown
+
+### Workflow Guidance (SHOULD)
+4-phase approach: Research → Plan → Implement → Validate
+
+### Thinking Frameworks (SHOULD)
+| Task | Focus |
+|------|-------|
+| Requirements | Ask "why", clarify, find edge cases |
+| Architecture | Trade-offs, scalability |
+| Implementation | Tests first, minimal changes |
+| Review | Security, performance |
+
+### Progress Tracking (MUST)
+After subtask completion: Report progress, update checklist
+
+### Context Protection (MUST)
+- 15+ turns: Suggest save
+- 10+ files: Recommend checkpoint
+- Before task switch: Require save
+
+### State Format
+`CHECKPOINT.md`: Human-readable progress
+`.claude/state.json`: Machine state (optional)
+
+---
+<!-- Standard Mode | /project-optimizer:upgrade for Full Mode -->

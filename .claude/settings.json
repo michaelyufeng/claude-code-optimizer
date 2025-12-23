@@ -1,0 +1,14 @@
+{
+  "projectType": "dev",
+  "permissions": {
+    "autoApprove": ["read", "glob", "grep"],
+    "requireConfirmation": ["edit", "write", "bash"],
+    "restricted": ["delete", "force-push"]
+  },
+  "workflow": {
+    "requirePlanApproval": true,
+    "autoCheckpoint": true,
+    "checkpointInterval": 30
+  },
+  "initialized": "2025-12-23T00:00:00.000Z"
+}

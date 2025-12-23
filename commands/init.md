@@ -4,371 +4,294 @@ description: Initialize project for Claude Code optimization
 
 # Initialize Project
 
-智能初始化项目，按需选择功能层级。
+Set up project with self-driving behavior rules and appropriate configuration level.
 
-## 执行流程
+## Flow
 
 ```
 ┌─────────────────────────────────────────┐
-│              /init 开始                  │
+│              /init start                 │
 └───────────────┬─────────────────────────┘
                 │
                 ▼
         ┌───────────────┐
-        │ 存在 CLAUDE.md?│
+        │ CLAUDE.md     │
+        │ exists?       │
         └───────┬───────┘
                 │
        ┌────────┴────────┐
        │                 │
-       ▼                 ▼
-      否                 是
+       No               Yes
        │                 │
        ▼                 ▼
-  选择开发模式      检查审查标签
+  Select mode      Check status
        │                 │
        ▼                 ▼
-  创建对应配置      评估/跳过/更新
+  Create config    Update/Skip
 ```
 
 ---
 
-## 场景 A：新项目初始化
+## Scenario A: New Project
 
-### 询问开发模式
+### Mode Selection
 
 ```
-🎯 Claude Code Optimizer 初始化
+Claude Code Optimizer Setup
 
-请选择开发模式：
+Select development mode:
 
-[1] ⚡ 快速模式 (推荐)
-    生成精炼 CLAUDE.md，直接开始编码
-    适合：个人项目、快速原型、小功能
+[1] Quick Mode (Recommended for most)
+    - Minimal CLAUDE.md (~50 lines)
+    - Basic self-driving rules
+    - Start coding immediately
+    - Best for: small projects, prototypes
 
-[2] 📋 标准模式
-    简单规划 + 完整配置
-    适合：中型项目、需要一定规划
+[2] Standard Mode
+    - Balanced CLAUDE.md (~100 lines)
+    - Full self-driving rules
+    - Task breakdown support
+    - Best for: medium projects
 
-[3] 🏗️ 完整模式
-    9阶段流程 + Gate 门禁
-    适合：大型项目、团队协作、正式产品
+[3] Full Mode
+    - Complete CLAUDE.md (~150 lines)
+    - Strict self-driving rules
+    - Optional phase workflow
+    - Best for: large projects, teams
 ```
 
----
+### Quick Mode Setup
 
-### 模式 1：⚡ 快速模式
-
-**特点**：最少配置，最快启动，最省 token
-
-**创建的文件**：
+**Creates:**
 ```
 project/
-├── CLAUDE.md              # 精炼版 (~50行)
+├── CLAUDE.md              # Minimal with basic rules
+└── .claude/commands/
+    └── checkpoint.md      # Progress saving
+```
+
+**Output:**
+```
+Quick Mode initialized!
+
+Created:
+  CLAUDE.md (50 lines)
+  .claude/commands/checkpoint.md
+
+Self-driving rules enabled:
+  - Session state detection
+  - Progress save reminders
+  - Basic task tracking
+
+Start coding! Use /checkpoint to save progress.
+
+Upgrade later: /upgrade
+```
+
+### Standard Mode Setup
+
+**Asks 3 questions:**
+```
+Quick Setup Questions:
+
+1. Project type?
+   [Web App] [API] [CLI] [Library] [Other]
+
+2. Main tech stack?
+   > _______________
+
+3. Any special requirements?
+   [ ] Security focus
+   [ ] Performance critical
+   [ ] Team collaboration
+   [ ] None
+```
+
+**Creates:**
+```
+project/
+├── CLAUDE.md              # Standard with full rules
 └── .claude/
-    └── commands/
-        ├── checkpoint.md  # 保存进度
-        └── review.md      # 代码审查 (可选)
+    ├── commands/
+    │   ├── checkpoint.md
+    │   ├── restore.md
+    │   ├── plan.md
+    │   └── review.md
+    └── state.json         # Initial state
 ```
 
-**CLAUDE.md 模板**（精炼版）：
+**Output:**
+```
+Standard Mode initialized!
 
-```markdown
-# [项目名称]
+Created:
+  CLAUDE.md (100 lines)
+  .claude/commands/ (4 commands)
+  .claude/state.json
 
-> 快速模式 | 创建于 [日期]
+Self-driving rules enabled:
+  - Session state detection & restore
+  - Task complexity assessment
+  - Automatic breakdown suggestions
+  - Progress tracking & save reminders
+  - Thinking frameworks for different tasks
 
-## 项目简介
+Available commands:
+  /checkpoint  - Save progress
+  /restore     - Restore session
+  /plan        - Plan a task
+  /review      - Code review
 
-[一句话描述项目目标]
-
-## 技术栈
-
-- 语言:
-- 框架:
-- 数据库:
-
-## 开发规范
-
-- 代码风格: [简要说明]
-- 命名规范: [简要说明]
-
-## 常用命令
-
-```bash
-# 开发
-[命令]
-
-# 测试
-[命令]
-
-# 构建
-[命令]
+Upgrade later: /upgrade
 ```
 
-## 当前任务
+### Full Mode Setup
 
-- [ ] [任务1]
-- [ ] [任务2]
+**Asks about workflow:**
+```
+Full Mode Configuration
 
-## 注意事项
+Enable optional features:
 
-- [重要约束1]
-- [重要约束2]
+[x] Phase workflow (Research → Plan → Implement → Validate)
+[ ] Gate checkpoints (quality gates between phases)
+[ ] Detailed state tracking
 
----
-<!-- 快速模式 | 需要更多功能时运行 /project-optimizer:upgrade -->
+Note: All features can be toggled later
 ```
 
-**输出**：
-```
-✅ 快速模式初始化完成！
-
-📁 创建的文件：
-   ✓ CLAUDE.md (精炼版, 50行)
-   ✓ .claude/commands/checkpoint.md
-   ✓ .claude/commands/review.md
-
-🎯 直接开始编码吧！
-
-💡 常用命令：
-   /project-optimizer:checkpoint  - 保存进度
-   /project-optimizer:review      - 代码审查 (可选)
-   /project-optimizer:upgrade     - 需要更多功能时升级
-
-⚡ Token 消耗：最小 (~500/次)
-```
-
----
-
-### 模式 2：📋 标准模式
-
-**特点**：平衡配置，适度规划
-
-**创建的文件**：
+**Creates:**
 ```
 project/
-├── CLAUDE.md              # 标准版 (~100行)
-└── .claude/
-    ├── settings.json
-    └── commands/
-        ├── checkpoint.md
-        ├── review.md
-        ├── plan.md
-        └── assess.md
-```
-
-**额外步骤**：
-1. 简单需求分析（3个问题）
-2. 生成完整 CLAUDE.md
-3. 安装扩展命令
-
-**需求分析问题**：
-```
-📋 简单需求分析
-
-1. 项目类型是什么？
-   [1] Web 应用  [2] API 服务  [3] CLI 工具
-   [4] 移动应用  [5] 库/SDK   [6] 其他
-
-2. 预计项目规模？
-   [1] 小型 (<10 文件)
-   [2] 中型 (10-50 文件)
-   [3] 大型 (50+ 文件)
-
-3. 有特殊要求吗？（可多选）
-   [ ] 需要代码审查
-   [ ] 需要安全检查
-   [ ] 需要性能优化
-   [ ] 无特殊要求
-```
-
-**输出**：
-```
-✅ 标准模式初始化完成！
-
-📁 创建的文件：
-   ✓ CLAUDE.md (标准版, 100行)
-   ✓ .claude/settings.json
-   ✓ .claude/commands/ (4 个命令)
-
-🎯 可用命令：
-   /project-optimizer:plan        - 任务规划
-   /project-optimizer:checkpoint  - 保存进度
-   /project-optimizer:review      - 代码审查
-   /project-optimizer:assess      - 评估配置
-
-💡 建议：先用 /plan 规划你的第一个任务
-
-⚡ Token 消耗：中等 (~1000/次)
-```
-
----
-
-### 模式 3：🏗️ 完整模式
-
-**特点**：完整流程，适合大型项目
-
-**创建的文件**：
-```
-project/
-├── CLAUDE.md              # 完整版 (~150行)
+├── CLAUDE.md              # Complete with strict rules
 ├── .claude/
-│   ├── settings.json
-│   ├── PROJECT_STATE.json
-│   └── commands/          # 全部命令
+│   ├── commands/          # All commands
+│   ├── state.json         # Full state
+│   └── config.json        # Mode config
 └── docs/
-    └── DISCOVERIES.md
+    └── DECISIONS.md       # Decision log
 ```
 
-**完整流程**（可选阶段）：
+**Output:**
 ```
-选择需要的阶段（可跳过）：
+Full Mode initialized!
 
-[x] 🔍 研究阶段 - 需求分析和技术调研
-[x] 📝 规划阶段 - PRD 和任务分解
-[ ] 🚧 Gate 1 - 规划审核 (可选)
-[x] 🏗️ 架构阶段 - 技术架构设计
-[x] 🎨 原型阶段 - 前端原型
-[ ] ✅ Gate 2 - 原型确认 (可选)
-[x] ⚙️ 后端阶段 - 后端开发
-[x] 🔗 集成阶段 - 前后端集成
-[x] 📦 输出阶段 - 文档和部署
+Created:
+  CLAUDE.md (150 lines)
+  .claude/ (complete setup)
+  docs/DECISIONS.md
 
-提示：Gate 门禁适合团队协作，个人项目可跳过
-```
+Self-driving rules (strict):
+  - Mandatory session state check
+  - Required task breakdown for L/XL tasks
+  - 4-phase workflow guidance
+  - Continuous progress tracking
+  - Proactive context protection
+  - Detailed state persistence
 
-**输出**：
-```
-✅ 完整模式初始化完成！
+Phase workflow: Enabled
+Gate checkpoints: Disabled (enable with /gate1, /gate2)
 
-📁 创建的文件：
-   ✓ CLAUDE.md (完整版)
-   ✓ .claude/ (完整配置)
-   ✓ docs/DISCOVERIES.md
-
-🎯 选择的阶段：
-   ✓ 研究 → 规划 → 架构 → 原型 → 后端 → 集成 → 输出
-   (已跳过 Gate 门禁)
-
-📍 当前阶段：研究阶段 (1/7)
-   下一步：运行 /project-optimizer:research
-
-⚡ Token 消耗：较高 (~2000/次)
+Recommended first step: /plan [your first task]
 ```
 
 ---
 
-## 场景 B：已有 CLAUDE.md
+## Scenario B: Existing CLAUDE.md
 
-### 检查审查标签
-
-```python
-# 伪代码逻辑
-if 有审查标签:
-    if 未过期 (< 30天):
-        显示"已认证，是否跳过？"
-    else:
-        显示"标签已过期，建议重新评估"
-else:
-    进行质量评估
-```
-
-### 输出示例
+### Check Status
 
 ```
-🔍 检测到现有 CLAUDE.md
+Existing CLAUDE.md detected!
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+File info:
+  Lines: [N]
+  Mode: [Quick/Standard/Full]
+  Last modified: [time]
 
-📋 文件信息：
-   行数: 85 行
-   模式: 快速模式
-   创建: 2024-12-20
-
-📊 状态: ✅ 已认证 (3天前)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-请选择操作：
-
-[1] ⏭️ 跳过 - 当前配置有效，直接使用
-[2] 🔄 更新 - 检测项目变化并更新配置
-[3] ⬆️ 升级 - 从快速模式升级到标准/完整模式
-[4] 📊 评估 - 重新评估配置质量
+Actions:
+[1] Skip - Current config is fine
+[2] Update - Sync with project changes
+[3] Upgrade - Move to higher mode
+[4] Assess - Check configuration quality
 ```
 
 ---
 
-## 升级路径
+## Mode Comparison
 
-### /upgrade 命令
-
-从低层级升级到高层级：
-
-```
-⬆️ 模式升级
-
-当前模式: ⚡ 快速模式
-
-可升级到：
-
-[1] 📋 标准模式
-    + 添加任务规划功能
-    + 添加配置评估功能
-    + 扩展 CLAUDE.md 内容
-
-[2] 🏗️ 完整模式
-    + 添加完整阶段流程
-    + 添加 Gate 门禁 (可选)
-    + 添加所有高级功能
-
-升级不会删除现有内容，只会增强功能。
-```
+| Feature | Quick | Standard | Full |
+|---------|-------|----------|------|
+| CLAUDE.md size | ~50 lines | ~100 lines | ~150 lines |
+| Self-driving rules | Basic | Full | Strict |
+| Session restore | Simple | Complete | Detailed |
+| Task breakdown | Manual | Suggested | Required (L/XL) |
+| Progress tracking | Basic | Standard | Continuous |
+| State persistence | Optional | Enabled | Required |
+| Phase workflow | No | No | Optional |
+| Gate checkpoints | No | No | Optional |
 
 ---
 
-## 智能建议触发
+## Template Variables
 
-当检测到以下情况时，自动建议：
+When creating CLAUDE.md, replace these placeholders:
 
-| 触发条件 | 建议 |
-|----------|------|
-| 代码文件 > 20 个 | 建议升级到标准模式 |
-| 多人协作 (检测 git 多作者) | 建议启用 Gate 门禁 |
-| 频繁报错 | 建议运行 /review |
-| CLAUDE.md > 30 天未更新 | 建议运行 /evolve |
-| 任务复杂 | 建议使用 /plan |
-
----
-
-## Token 消耗对比
-
-| 模式 | 初始化消耗 | 每次对话额外消耗 | 适合场景 |
-|------|-----------|-----------------|----------|
-| ⚡ 快速 | ~500 | ~300 | 小项目、快速迭代 |
-| 📋 标准 | ~1000 | ~500 | 中型项目 |
-| 🏗️ 完整 | ~2000 | ~800 | 大型项目、团队协作 |
+| Variable | Source |
+|----------|--------|
+| `{{PROJECT_NAME}}` | Directory name or ask |
+| `{{DATE}}` | Current date |
+| `{{LANGUAGE}}` | Detect or ask |
+| `{{FRAMEWORK}}` | Detect or ask |
+| `{{DEV_COMMAND}}` | Detect from package.json etc. |
 
 ---
 
-## 输出格式
+## Self-Driving Rules Summary
 
-所有模式完成后显示：
+All modes include these core rules in CLAUDE.md:
+
+### Session Start
+- Check for existing checkpoint/state
+- Offer to restore if found
+
+### During Work
+- Assess task complexity
+- Suggest breakdown for complex tasks
+- Track progress
+
+### Context Protection
+- Monitor conversation length
+- Remind to save at thresholds
+- Protect against context loss
+
+### Mode Differences
+
+| Rule | Quick | Standard | Full |
+|------|-------|----------|------|
+| Session check | SHOULD | MUST | MUST |
+| Task assessment | PREFER | SHOULD | MUST |
+| Breakdown suggestion | No | SHOULD | MUST (L/XL) |
+| Progress tracking | Basic | Standard | Strict |
+| State persistence | Optional | SHOULD | MUST |
+
+---
+
+## Key Principles
+
+Based on best practices research:
+
+1. **CLAUDE.md is king** - All behavior through rules, not commands
+2. **Let agent decide** - Don't force rigid workflows
+3. **Checklist over agents** - Use task lists, not predefined roles
+4. **Context protection** - Never exceed 60% context
+5. **State persistence** - Human-readable CHECKPOINT.md
+
+## Usage
 
 ```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-✅ 初始化完成！
-
-模式: [⚡快速 / 📋标准 / 🏗️完整]
-文件: [数量] 个
-Token: ~[估算] (本次初始化)
-
-🎯 下一步: [具体建议]
-
-💡 提示:
-   遇到问题时运行 /project-optimizer:help
-   需要更多功能时运行 /project-optimizer:upgrade
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/init              # Start initialization
+/init quick        # Quick mode directly
+/init standard     # Standard mode directly
+/init full         # Full mode directly
 ```
