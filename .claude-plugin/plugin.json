@@ -1,7 +1,7 @@
 {
   "name": "project-optimizer",
-  "description": "Self-driving Claude Code enhancement - intelligent behavior rules, context protection, and task management through CLAUDE.md",
-  "version": "2.0.0",
+  "description": "Minimal Claude Code enhancement - persistent memory via CLAUDE.md diary system",
+  "version": "3.0.0",
   "author": {
     "name": "michaelyufeng"
   },
