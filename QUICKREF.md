@@ -45,7 +45,7 @@ Escape Escape    # 返回历史编辑
 ├── CLAUDE.local.md        # 本地配置（不提交 git）
 ├── .claude/
 │   ├── commands/          # 斜杠命令
-│   │   └── xxx.md         # 可用 /project:xxx
+│   │   └── xxx.md         # 可用 /project-optimizer:xxx
 │   └── settings.json      # 权限配置
 └── ~/.claude/
     ├── CLAUDE.md          # 全局配置
@@ -76,17 +76,17 @@ Escape Escape    # 返回历史编辑
 
 ### 新功能开发
 ```
-1. /project:plan [功能描述]
+1. /project-optimizer:plan [功能描述]
 2. 确认计划
 3. 让 Claude 实现
-4. /project:review
+4. /project-optimizer:review
 5. 修复问题
 6. 提交
 ```
 
 ### Bug 修复
 ```
-1. /project:fix-issue [issue号]
+1. /project-optimizer:fix-issue [issue号]
 2. 确认修复方案
 3. 实现修复
 4. 验证
@@ -96,7 +96,7 @@ Escape Escape    # 返回历史编辑
 ### 长任务
 ```
 1. 开始任务
-2. 定期 /project:checkpoint
+2. 定期 /project-optimizer:checkpoint
 3. 上下文满了就 /compact
 4. 新对话读取 CHECKPOINT.md 继续
 ```
