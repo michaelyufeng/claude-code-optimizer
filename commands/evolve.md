@@ -8,6 +8,71 @@ description: Evolve and update CLAUDE.md as project progresses
 
 随着项目进展，自动更新 CLAUDE.md 配置文件，确保配置与项目当前状态同步。
 
+**核心理念**: CLAUDE.md 是一个**活文档**，应该随项目演进持续优化，而不是一次性配置。
+
+## 命令用法
+
+```bash
+/project-optimizer:evolve                    # 自动检测并更新
+/project-optimizer:evolve --check            # 检查是否需要更新（不修改）
+/project-optimizer:evolve --section tech     # 只更新技术栈章节
+/project-optimizer:evolve --full             # 完整重新生成
+/project-optimizer:evolve --preview          # 预览变更不应用
+/project-optimizer:evolve --sync-tag         # 更新审查标签
+```
+
+---
+
+## 与审查标签系统集成
+
+### 识别已审查的 CLAUDE.md
+
+演进前会检查审查标签：
+
+```
+🔍 检测 CLAUDE.md 状态...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 审查标签信息:
+   状态: ✅ 已认证
+   评分: 85/100
+   上次审查: 2024-12-20
+   天数: 3 天前
+
+📊 变更检测:
+   CLAUDE.md: 未修改
+   代码库: +15 文件, -3 文件, ~28 文件
+
+💡 建议:
+   代码库有变更，建议更新 CLAUDE.md 以保持同步
+
+操作选项:
+[1] 🔄 智能更新 - 根据代码变更更新相关章节
+[2] 📊 重新评估 - 运行完整质量评估
+[3] ⏭️ 跳过 - 当前配置仍然有效
+```
+
+### 更新审查标签
+
+演进完成后自动更新标签：
+
+```markdown
+<!-- Claude Code Optimizer 审查记录 -->
+<!--
+  评估时间: 2024-12-23
+  评估版本: 1.0.1
+  综合评分: 88/100 (↑3)
+  评级: ⭐⭐⭐⭐ 优秀
+  状态: ✅ 已认证
+  演进次数: 3
+  上次演进: 2024-12-23 - 添加新模块结构
+  下次审查: 当项目有重大变更时运行 /project-optimizer:evolve
+-->
+```
+
+---
+
 ## 演进机制
 
 ### 配置版本化
