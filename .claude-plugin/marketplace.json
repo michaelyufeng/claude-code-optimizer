@@ -4,19 +4,19 @@
     "name": "michaelyufeng"
   },
   "metadata": {
-    "description": "Claude Code optimization toolkit marketplace - templates and workflows for project development",
-    "version": "1.0.1"
+    "description": "Minimal Claude Code enhancement - persistent memory via CLAUDE.md diary system",
+    "version": "3.0.0"
   },
   "plugins": [
     {
       "name": "project-optimizer",
       "source": "./",
-      "description": "CLAUDE.md templates, slash commands, and workflow automation for new/developing/production projects",
-      "version": "1.0.1",
+      "description": "Minimal Claude Code enhancement - persistent memory via CLAUDE.md diary system",
+      "version": "3.0.0",
       "author": {
         "name": "michaelyufeng"
       },
-      "keywords": ["claude-code", "optimization", "workflow", "templates"]
+      "keywords": ["claude-code", "optimization", "workflow", "memory", "diary"]
     }
   ]
 }
