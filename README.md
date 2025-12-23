@@ -1,139 +1,153 @@
 # Claude Code Optimizer
 
-> Claude Code 项目优化工具包 - 一键安装，开箱即用
+> AI 驱动的项目规划工具 - 强制性流程，不能跳过
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-blue)](https://claude.com/blog/claude-code-plugins)
 
-## 一键安装
+## 核心特性
+
+### 🔐 强制顺序流程
+
+新项目必须按以下顺序完成，**不能跳过任何步骤**：
+
+```
+🔍 研究 → 📝 规划 → 🚧 Gate1 → 🏗️ 架构 → 🎨 原型 → ✅ Gate2 → ⚙️ 后端 → 🔗 集成 → 📦 输出
+```
+
+### 🔬 完整研究阶段
+
+在写任何代码之前，必须完成 6 类研究：
+
+| 研究类型 | 内容 |
+|----------|------|
+| 📊 市场调研 | 目标用户、市场规模、竞争格局 |
+| ⚙️ 技术研究 | 技术栈选择、可行性分析 |
+| 👥 用户研究 | 用户痛点、需求分析 |
+| ⚖️ 合规研究 | 法规政策、安全要求 |
+| 💰 成本研究 | 开发成本、运营成本 |
+| 🎯 竞品研究 | 竞品分析、差异化策略 |
+
+### 🚧 Quality Gates
+
+- **Gate 1**: 规划审核 - PRD 完整性、技术可行性检查
+- **Gate 2**: 原型确认 - 用户体验验证，确认满意后才开发后端
+
+### 🎨 原型先行策略
+
+- 先做前端原型（Mock 数据）
+- 用户确认后再开发后端
+- 重做成本极低
+
+## 安装
 
 ```bash
-# 在 Claude Code 中执行
-/plugin marketplace add zhuyufeng/claude-code-optimizer
+# 添加 marketplace
+/plugin marketplace add michaelyufeng/claude-code-optimizer
+
+# 安装插件
 /plugin install project-optimizer
 ```
 
-或者使用 GitHub URL：
-```bash
-/plugin marketplace add https://github.com/zhuyufeng/claude-code-optimizer.git
-/plugin install project-optimizer
-```
+## 三种项目模式
 
-## 功能特性
-
-### 三种项目模式
-
-| 模式 | 适用场景 | 权限级别 |
-|------|----------|----------|
-| `new` | 新项目，需要完整规划 | 🟢 开放 |
-| `dev` | 开发中项目 | 🟡 中等 |
-| `prod` | 生产环境，严格保护 | 🔴 严格 |
-
-### 斜杠命令
-
-安装后可使用以下命令：
-
-| 命令 | 功能 |
-|------|------|
-| `/project-optimizer:plan [任务]` | 任务规划（先计划后编码）|
-| `/project-optimizer:review [范围]` | 多维度代码审查 |
-| `/project-optimizer:fix-issue [issue号]` | 修复 GitHub Issue |
-| `/project-optimizer:checkpoint` | 保存进度检查点 |
-
-### Agent Skill（自动激活）
-
-安装后，当你提到以下内容时会自动激活：
-- "初始化项目"、"配置 Claude"、"setup project"
-- "创建 CLAUDE.md"、"优化项目配置"
-
-## 手动安装（不使用插件系统）
-
-如果你的 Claude Code 版本不支持插件，可以使用脚本安装：
-
-```bash
-# 克隆仓库
-git clone https://github.com/zhuyufeng/claude-code-optimizer.git
-
-# 进入目录
-cd claude-code-optimizer
-
-# 初始化你的项目
-./init.sh new /path/to/your-project
-# 或
-./init.sh dev /path/to/your-project
-# 或
-./init.sh prod /path/to/your-project
-```
-
-## 安装后的目录结构
-
-```
-your-project/
-├── CLAUDE.md              # 项目配置（需编辑）
-├── .claude/
-│   ├── commands/          # 斜杠命令
-│   │   ├── plan.md
-│   │   ├── fix-issue.md
-│   │   ├── review.md
-│   │   └── checkpoint.md
-│   └── settings.json      # 权限配置
-├── docs/
-│   └── DISCOVERIES.md     # 开发教训记录
-└── .gitignore             # 已配置
-```
+| 模式 | 适用场景 | 流程 |
+|------|----------|------|
+| 🆕 全新项目 | 从零开始 | 研究 → 规划 → Gate1 → 架构 → 原型 → Gate2 → 后端 → 集成 → 输出 |
+| 🔧 开发中项目 | 已有代码框架 | 分析 → 更新计划 → Gate → 继续开发 → 输出 |
+| 🚀 运维项目 | 线上运行中 | 诊断 → 审批 → 修复 → 验证 → 输出 |
 
 ## 使用流程
 
-### 1. 安装插件
+### 1. 初始化项目
+
+```
+用户: 帮我初始化一个新项目
+
+Claude: 🎯 请选择你的项目状态：
+
+        1. 🆕 全新项目
+        2. 🔧 开发中项目
+        3. 🚀 运维项目
+
+用户: 1
+
+Claude: ✅ 项目初始化完成！
+        📍 当前阶段：研究阶段 (1/9)
+
+        下一步：运行 /project-optimizer:research
+```
+
+### 2. 按顺序完成各阶段
 
 ```bash
-/plugin install project-optimizer@claude-code-optimizer
+/project-optimizer:status      # 查看当前状态
+/project-optimizer:research    # 研究阶段
+/project-optimizer:planning    # 规划阶段
+/project-optimizer:gate1       # Gate 1 审核
+/project-optimizer:architecture # 架构阶段
+/project-optimizer:prototype   # 原型阶段
+/project-optimizer:gate2       # Gate 2 确认
+/project-optimizer:backend     # 后端阶段
+/project-optimizer:integration # 集成阶段
+/project-optimizer:output      # 输出阶段
 ```
 
-### 2. 初始化项目
+### 3. 阻止跳过
 
-直接告诉 Claude：
+如果尝试跳过阶段：
+
 ```
-帮我初始化这个项目用于 Claude Code（选择 new/dev/prod 模式）
-```
+用户: 帮我开始写代码
 
-或使用斜杠命令配合 init.sh：
-```bash
-./init.sh new .
-```
+Claude: 🔒 当前处于【研究阶段】(1/9)
 
-### 3. 编辑 CLAUDE.md
+        未完成的研究：
+        ❌ 市场调研
+        ❌ 用户研究
+        ❌ 技术研究
 
-填写项目具体信息：
-- 项目名称和描述
-- 技术栈
-- 常用命令
-- 代码规范
+        请先完成研究阶段：
+        /project-optimizer:research
 
-### 4. 开始使用
-
-```bash
-# 规划任务
-/project-optimizer:plan 实现用户登录功能
-
-# 代码审查
-/project-optimizer:review src/
-
-# 修复 Issue
-/project-optimizer:fix-issue 123
-
-# 保存进度
-/project-optimizer:checkpoint
+        完成后才能进入下一阶段。
 ```
 
-## 核心原则
+## 产出物
 
-基于 [Anthropic 官方最佳实践](https://www.anthropic.com/engineering/claude-code-best-practices)：
+完成流程后将生成：
 
-1. **先探索再编码** - 让 Claude 先读文件、做计划
-2. **CLAUDE.md 要精炼** - 像调试 prompt 一样迭代
-3. **分层配置** - 根目录 + 子模块各有 CLAUDE.md
-4. **记录教训** - 用 DISCOVERIES.md 记录问题和解决方案
+```
+project/
+├── CLAUDE.md              # 项目配置
+├── .claude/
+│   └── PROJECT_STATE.json # 进度追踪
+└── docs/
+    ├── RESEARCH.md        # 研究报告
+    ├── PRD.md             # 产品需求文档
+    ├── ARCHITECTURE.md    # 架构设计
+    ├── API.md             # API 文档
+    ├── DATABASE.md        # 数据库设计
+    ├── GATE1_REVIEW.md    # Gate 1 审核报告
+    ├── GATE2_REVIEW.md    # Gate 2 审核报告
+    └── PROJECT_SUMMARY.md # 项目总结
+```
+
+## 设计理念
+
+基于以下最佳实践：
+
+1. **Spec-Driven Development** - 规范驱动开发
+2. **V-Bounce Model** - 验证优先
+3. **BMAD Method** - 多代理协作
+4. **Quality Gates** - 质量门禁
+5. **Phased Configuration** - 分阶段配置
+
+核心原则：
+- 先探索再编码
+- 先规划后实现
+- 先验证后扩展
+- 低成本试错
 
 ## 深度思考触发词
 
@@ -148,8 +162,6 @@ your-project/
 
 - [Anthropic 官方最佳实践](https://www.anthropic.com/engineering/claude-code-best-practices)
 - [Claude Code 插件文档](https://code.claude.com/docs/en/plugins)
-- [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code)
-- [awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)
 
 ## 贡献
 

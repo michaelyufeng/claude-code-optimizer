@@ -1,87 +1,70 @@
 # [项目名称]
 
-> 项目阶段：🆕 新项目 | 需要完整规划
+> 项目阶段：🆕 新项目 | 强制流程规划中
 
-## 📋 项目概述
+## 📊 项目状态
 
-[简述项目目标和核心功能]
+**当前阶段**: 研究阶段 (1/9)
+**流程模式**: 🔐 强制顺序（必须完成当前步骤才能进入下一步）
 
-## 🛠 技术栈
+```
+🔍 研究 → 📝 规划 → 🚧 Gate1 → 🏗️ 架构 → 🎨 原型 → ✅ Gate2 → ⚙️ 后端 → 🔗 集成 → 📦 输出
+   ↑
+ 当前
+```
 
-- Runtime: Node.js 20+ / Python 3.11+
-- Framework: [Next.js / FastAPI / ...]
-- Database: [PostgreSQL / MongoDB / ...]
-- 包管理: [pnpm / npm / uv]
+## 📋 阶段清单
 
-## ⚡ 常用命令
+| 阶段 | 状态 | 命令 |
+|------|------|------|
+| 1. 研究 | ● 进行中 | `/project-optimizer:research` |
+| 2. 规划 | 🔒 锁定 | `/project-optimizer:planning` |
+| 3. Gate 1 | 🔒 锁定 | `/project-optimizer:gate1` |
+| 4. 架构 | 🔒 锁定 | `/project-optimizer:architecture` |
+| 5. 原型 | 🔒 锁定 | `/project-optimizer:prototype` |
+| 6. Gate 2 | 🔒 锁定 | `/project-optimizer:gate2` |
+| 7. 后端 | 🔒 锁定 | `/project-optimizer:backend` |
+| 8. 集成 | 🔒 锁定 | `/project-optimizer:integration` |
+| 9. 输出 | 🔒 锁定 | `/project-optimizer:output` |
+
+## 🔍 研究阶段进度
+
+必须完成以下所有研究类型：
+
+- [ ] 📊 市场调研 - 目标用户、市场规模、竞争格局
+- [ ] ⚙️ 技术研究 - 技术栈选择、可行性分析
+- [ ] 👥 用户研究 - 用户痛点、需求分析
+- [ ] ⚖️ 合规研究 - 法规政策、安全要求
+- [ ] 💰 成本研究 - 开发成本、运营成本
+- [ ] 🎯 竞品研究 - 竞品分析、差异化
+
+## 📄 产出文档
+
+完成流程后将生成：
+- `docs/RESEARCH.md` - 研究报告
+- `docs/PRD.md` - 产品需求文档
+- `docs/ARCHITECTURE.md` - 架构设计
+- `docs/API.md` - API 文档
+- `docs/DATABASE.md` - 数据库设计
+
+## ⚠️ 重要规则
+
+1. **不能跳过阶段** - 必须按顺序完成
+2. **Gate 审核** - Gate 不通过则返回上一阶段修改
+3. **先规划后编码** - 研究和规划完成前不写任何代码
+4. **原型先行** - 先做前端原型，用户确认后再开发后端
+
+## 🛠 可用命令
 
 ```bash
-# 开发
-pnpm dev          # 启动开发服务器
-pnpm build        # 构建项目
-pnpm test         # 运行测试
-pnpm lint         # 代码检查
-pnpm typecheck    # 类型检查
-
-# Git
-git status        # 查看状态
-git diff          # 查看变更
+/project-optimizer:status      # 查看当前状态
+/project-optimizer:research    # 研究阶段
+/project-optimizer:planning    # 规划阶段
+/project-optimizer:gate1       # Gate 1 审核
+/project-optimizer:architecture # 架构阶段
+/project-optimizer:prototype   # 原型阶段
+/project-optimizer:gate2       # Gate 2 确认
+/project-optimizer:backend     # 后端阶段
+/project-optimizer:integration # 集成阶段
+/project-optimizer:output      # 输出阶段
 ```
-
-## 📁 项目结构
-
-```
-src/
-├── components/   # UI 组件
-├── pages/        # 页面
-├── api/          # API 路由
-├── lib/          # 工具函数
-└── types/        # 类型定义
-```
-
-## ✅ 代码规范
-
-### 必须遵守
-- 使用 TypeScript，避免 `any`
-- 组件使用函数式写法
-- 解构导入 `import { x } from 'y'`
-- 每个函数必须有注释说明用途
-
-### 禁止事项
-- ❌ 不要在组件中写业务逻辑
-- ❌ 不要直接操作 DOM
-- ❌ 不要 hard-code 配置值
-- ❌ 不要忽略 TypeScript 错误
-
-## 🔄 开发工作流
-
-### 开始任务前
-1. 先读取相关文件，理解现有代码
-2. 制定计划，**不要直接写代码**
-3. 计划确认后再开始实现
-
-### 完成任务后 (IMPORTANT)
-1. `pnpm lint` - 检查代码规范
-2. `pnpm typecheck` - 检查类型
-3. `pnpm test` - 运行相关测试
-4. 如有问题，修复后再提交
-
-## 📝 任务记录
-
-### 当前任务
-- [ ] 待填写
-
-### 已完成
-- [x] 项目初始化
-
-## ⚠️ 注意事项
-
-- 大改动前先问用户确认
-- 不确定的地方先搜索再实现
-- 参考 `docs/` 目录下的文档
-
-## 📚 相关文档
-
-- `docs/API.md` - API 文档
-- `docs/ARCHITECTURE.md` - 架构设计
-- `docs/DISCOVERIES.md` - 开发中的发现
