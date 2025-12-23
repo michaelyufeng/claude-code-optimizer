@@ -1,11 +1,11 @@
 {
   "name": "project-optimizer",
   "description": "Claude Code project optimization toolkit - CLAUDE.md templates, slash commands, and workflow automation for new/developing/production projects",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
-    "name": "zhuyufeng"
+    "name": "michaelyufeng"
   },
-  "repository": "https://github.com/zhuyufeng/claude-code-optimizer",
+  "repository": "https://github.com/michaelyufeng/claude-code-optimizer",
   "license": "MIT",
   "keywords": [
     "claude-code",
@@ -13,6 +13,5 @@
     "workflow",
     "templates",
     "productivity"
-  ],
-  "category": "productivity"
+  ]
 }
