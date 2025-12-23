@@ -48,6 +48,22 @@
 - **决策记录** - 关键决策自动记录，便于追溯
 - **配置演进** - CLAUDE.md 随项目进展自动更新
 
+### 📊 Token 优化 (60-80% 节省)
+
+借鉴 [claude-code-spec-workflow](https://github.com/Pimzino/claude-code-spec-workflow)：
+
+- **Steering 文档** - 产品/技术/结构导航文档
+- **上下文整合** - 一次加载，多次复用
+- **智能同步** - 自动保持文档与代码一致
+
+### 🔍 自动审查系统
+
+借鉴 [OneRedOak/claude-code-workflows](https://github.com/OneRedOak/claude-code-workflows)：
+
+- **代码审查** - 语法、风格、Bug 检测
+- **设计审查** - UI/UX、无障碍、一致性
+- **安全审查** - OWASP Top 10、密钥泄露
+
 ## 安装
 
 ```bash
@@ -159,6 +175,26 @@ project/
 /project-optimizer:rules       # 管理项目规则
 ```
 
+## Token 优化命令
+
+```bash
+/project-optimizer:steering --setup    # 初始化 steering 系统
+/project-optimizer:steering --context  # 获取合并上下文 (节省 60-80% token)
+/project-optimizer:steering --sync     # 检查同步状态
+/project-optimizer:sync                # 同步 CLAUDE.md 与代码库
+/project-optimizer:sync --smart        # 智能同步 (自动+确认)
+```
+
+## 自动审查命令
+
+```bash
+/project-optimizer:auto-review --code      # 代码审查
+/project-optimizer:auto-review --design    # 设计审查 (UI/UX/无障碍)
+/project-optimizer:auto-review --security  # 安全审查 (OWASP Top 10)
+/project-optimizer:auto-review --all       # 综合审查
+/project-optimizer:auto-review --fix       # 查看自动修复建议
+```
+
 ## 规则分层系统
 
 解决 "规则约束 vs 用户意图" 的冲突问题：
@@ -231,6 +267,17 @@ Claude: 检测到相关设计规则：
 
 - [Anthropic 官方最佳实践](https://www.anthropic.com/engineering/claude-code-best-practices)
 - [Claude Code 插件文档](https://code.claude.com/docs/en/plugins)
+
+## 灵感来源
+
+本项目整合了以下优秀项目的设计理念：
+
+| 项目 | 借鉴特性 |
+|------|----------|
+| [claude-code-spec-workflow](https://github.com/Pimzino/claude-code-spec-workflow) | Steering 系统、Token 优化 (60-80%) |
+| [OneRedOak/claude-code-workflows](https://github.com/OneRedOak/claude-code-workflows) | 自动审查、设计检查 |
+| [my-claude-code-setup](https://github.com/centminmod/my-claude-code-setup) | Memory Bank、同步机制 |
+| [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | Agent 模式、工作流 |
 
 ## 贡献
 
