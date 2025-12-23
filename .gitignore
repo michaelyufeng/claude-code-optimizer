@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Claude Code local files (in user projects, not this repo)
+# CLAUDE.local.md
+# CHECKPOINT.md
+.claude/settings.local.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node (if any)
+node_modules/
+npm-debug.log
+
+# Temp files
+*.tmp
+*.temp

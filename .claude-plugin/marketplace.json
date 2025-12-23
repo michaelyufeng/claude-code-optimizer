@@ -1,0 +1,23 @@
+{
+  "name": "claude-code-optimizer",
+  "owner": {
+    "name": "zhuyufeng"
+  },
+  "metadata": {
+    "description": "Claude Code optimization toolkit marketplace - templates and workflows for project development",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "project-optimizer",
+      "source": "./",
+      "description": "CLAUDE.md templates, slash commands, and workflow automation for new/developing/production projects",
+      "version": "1.0.0",
+      "author": {
+        "name": "zhuyufeng"
+      },
+      "keywords": ["claude-code", "optimization", "workflow", "templates"],
+      "category": "productivity"
+    }
+  ]
+}
