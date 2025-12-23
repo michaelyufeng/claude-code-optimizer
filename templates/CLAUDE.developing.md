@@ -1,10 +1,40 @@
 # [项目名称]
 
-> 项目阶段：🔧 开发中 | 保持现有结构
+> 项目阶段：🔧 开发中项目 | 保持结构，完善功能
 
-## ⚠️ 重要：开发中项目规则
+## 📊 项目状态
 
-这是一个**正在开发的项目**，基础架构已经确定。
+**当前阶段**: 分析现状 (1/5)
+**流程模式**: 🛡️ 保护模式（保持现有结构，谨慎修改）
+
+```
+🔬 分析 → 📋 更新计划 → 🚧 Gate → 💻 继续开发 → 📦 输出
+   ↑
+ 当前
+```
+
+## 📋 阶段清单
+
+| 阶段 | 状态 | 命令 |
+|------|------|------|
+| 1. 分析现状 | ● 进行中 | `/project-optimizer:analyze` |
+| 2. 更新计划 | 🔒 锁定 | `/project-optimizer:update-plan` |
+| 3. Gate | 🔒 锁定 | `/project-optimizer:gate1` |
+| 4. 继续开发 | 🔒 锁定 | `/project-optimizer:continue-dev` |
+| 5. 输出 | 🔒 锁定 | `/project-optimizer:output` |
+
+## 🛡️ 保护规则
+
+### 不应修改的文件
+- [添加需要保护的文件]
+
+### 不应删除的功能
+- [添加需要保护的功能]
+
+### 必须保持的接口
+- [添加必须保持兼容的API]
+
+## ⚠️ 开发中项目规则
 
 ### 🟢 可以做
 - 继续实现未完成的功能
@@ -24,106 +54,44 @@
 - 删除现有功能
 - 大规模重命名
 
-## 📋 项目现状
+## 📁 项目结构
 
-### 已完成模块
-- [x] 用户认证
-- [x] 基础 CRUD
-- [ ] [待完成功能1]
-- [ ] [待完成功能2]
+[完成分析阶段后自动填充]
 
-### 代码库分析
-```bash
-# 运行这个命令了解项目结构
-find . -name "*.ts" -o -name "*.tsx" | head -20
-```
+## 🛠 技术栈
 
-## 🛠 技术栈（已确定）
+[完成分析阶段后自动填充]
 
-- **不要更换这些**
-- Runtime: [Node.js 20]
-- Framework: [Next.js 14]
-- Database: [PostgreSQL]
-- ORM: [Prisma]
+## ✅ 已完成功能
 
-## ⚡ 常用命令
+[完成分析阶段后自动填充]
 
-```bash
-# 开发
-pnpm dev              # 开发服务器
-pnpm build            # 构建
-pnpm test             # 测试
-pnpm lint             # lint
-pnpm db:push          # 同步数据库
+## 📝 待完成功能
 
-# 调试
-pnpm prisma studio    # 数据库 GUI
-```
+[完成分析阶段后自动填充]
 
-## 📁 核心文件（改动需谨慎）
+## 📋 开发计划
 
-```
-src/
-├── lib/db.ts         # 数据库连接 ⚠️
-├── lib/auth.ts       # 认证逻辑 ⚠️
-├── middleware.ts     # 中间件 ⚠️
-└── types/index.ts    # 核心类型定义 ⚠️
-```
-
-## ✅ 开发规范
-
-### 添加新功能时
-1. 先检查是否有类似实现可参考
-2. 遵循现有代码风格
-3. 添加对应的测试
-4. 更新相关文档
-
-### 修复 Bug 时
-1. 先复现问题
-2. 找到根本原因
-3. 最小化修改范围
-4. 确保不引入新问题
-
-## 📝 任务进展追踪
-
-### 当前迭代
-| 任务 | 状态 | 负责人 |
+### 当前 Sprint
+| 任务 | 状态 | 优先级 |
 |------|------|--------|
-| 功能A | 进行中 | - |
-| Bug#123 | 待开始 | - |
+| [任务1] | 待开始 | P0 |
+| [任务2] | 待开始 | P1 |
 
 ### 已知问题
-- [ ] Issue #xxx: [描述]
-- [ ] Issue #xxx: [描述]
+- [ ] [问题1]
+- [ ] [问题2]
 
-## 🧪 测试要求
+## 🛠 可用命令
 
 ```bash
-# 修改代码后必须运行
-pnpm test -- --related  # 只跑相关测试
-pnpm lint
-pnpm typecheck
+/project-optimizer:status       # 查看当前状态
+/project-optimizer:analyze      # 分析现状
+/project-optimizer:update-plan  # 更新计划
+/project-optimizer:gate1        # Gate 审核
+/project-optimizer:continue-dev # 继续开发
+/project-optimizer:output       # 输出产物
+/project-optimizer:split-task   # 任务分割
+/project-optimizer:agents       # 查看Agent
+/project-optimizer:context      # 上下文管理
 ```
-
-## 📚 上下文恢复
-
-如果是新对话，先执行：
-```bash
-# 了解最近的修改
-git log --oneline -10
-
-# 查看当前状态
-git status
-
-# 了解项目结构
-ls -la src/
-```
-
-## ⚠️ 错误记录
-
-> 记录开发中遇到的问题，避免重复犯错
-
-### [日期] 问题描述
-- 原因：
-- 解决：
-- 教训：
