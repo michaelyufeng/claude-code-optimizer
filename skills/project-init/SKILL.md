@@ -3,11 +3,51 @@
 ## Description
 
 强制性项目规划流程。新项目必须按顺序完成每个阶段，不能跳过。
+支持跨会话上下文持久化，项目状态与 CLAUDE.md 随项目演进自动更新。
 
 ## Activation Triggers
 
 - "初始化项目"、"新项目"、"start project"
 - "创建项目"、"setup project"、"init project"
+
+## Memory System
+
+### 会话恢复检测
+
+**每次新会话开始时，首先检查项目记忆：**
+
+```
+检查 .claude/PROJECT_MEMORY/state.json
+
+如果存在未完成的项目状态：
+```
+🔔 检测到进行中的项目！
+
+📋 上次会话信息：
+- 时间: [上次保存时间]
+- 阶段: [当前阶段]
+- 任务: [当前任务] ([进度]%)
+
+🧠 关键上下文：
+- 技术栈: [已确定的技术栈]
+- 最近决策: [最近的关键决策]
+- 待解决: [待确认问题]
+
+是否恢复上次的上下文？
+
+[1] ✅ 恢复并继续 (推荐)
+[2] 📋 查看详情后决定
+[3] 🆕 从头开始
+```
+```
+
+### 自动保存触发
+
+在以下情况自动保存检查点：
+1. 阶段完成时
+2. Gate 通过时
+3. 做出关键决策时
+4. 用户请求保存时 (`/project-optimizer:save`)
 
 ## Instructions
 
@@ -106,16 +146,31 @@
 - 完整文档
 - 部署配置
 
-### Step 3: 创建进度追踪文件
+### Step 3: 创建项目记忆目录结构
 
-创建 `.claude/PROJECT_STATE.json`：
+创建 `.claude/PROJECT_MEMORY/` 目录结构：
+
+```
+.claude/PROJECT_MEMORY/
+├── state.json              # 当前状态
+├── checkpoints/            # 检查点历史
+├── decisions/              # 关键决策记录
+│   └── decisions.json
+├── context/                # 上下文片段
+└── sessions/               # 会话历史
+    └── sessions.json
+```
+
+创建 `.claude/PROJECT_MEMORY/state.json`：
 
 ```json
 {
   "projectType": "new",
   "currentPhase": 1,
+  "currentSubPhase": null,
+  "phaseProgress": 0,
   "phases": {
-    "research": { "status": "in_progress", "completedAt": null },
+    "research": { "status": "in_progress", "startedAt": "[timestamp]", "completedAt": null },
     "planning": { "status": "locked", "completedAt": null },
     "gate1": { "status": "locked", "completedAt": null },
     "architecture": { "status": "locked", "completedAt": null },
@@ -132,9 +187,23 @@
     "legal": false,
     "cost": false,
     "competitor": false
+  },
+  "memory": {
+    "lastCheckpoint": null,
+    "lastSavedAt": null,
+    "autoSaveEnabled": true,
+    "claudeMdVersion": 1
+  },
+  "context": {
+    "techStack": [],
+    "keyDecisions": [],
+    "openQuestions": [],
+    "userPreferences": {}
   }
 }
 ```
+
+同时创建 `.claude/PROJECT_STATE.json` 作为兼容性链接（指向 PROJECT_MEMORY/state.json）
 
 ### Step 4: 阻止跳过
 
@@ -174,5 +243,32 @@
 
 🔐 强制顺序模式：必须完成当前步骤才能进入下一步
 
+💾 记忆系统已启用：上下文将自动保存
+
 下一步：运行 /project-optimizer:research 开始研究阶段
 ```
+
+## Memory Commands
+
+项目记忆系统命令：
+
+```bash
+/project-optimizer:save       # 保存当前上下文到检查点
+/project-optimizer:restore    # 恢复上次的上下文
+/project-optimizer:history    # 查看会话历史
+/project-optimizer:decision   # 记录关键决策
+/project-optimizer:evolve     # 更新 CLAUDE.md 配置
+```
+
+## CLAUDE.md 演进
+
+CLAUDE.md 会随项目进展自动演进：
+
+| 阶段完成 | 添加的内容 |
+|----------|-----------|
+| 研究 | 技术栈、约束规则 |
+| 规划 | 功能清单、优先级 |
+| 架构 | 架构规则、API规范、安全规则 |
+| 原型 | UI/UX 规范、设计系统 |
+| 后端 | 数据库规范、服务约定 |
+| 集成 | 测试规范、部署配置 |

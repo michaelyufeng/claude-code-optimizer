@@ -1,16 +1,26 @@
 # [项目名称]
 
-> 项目阶段：🚀 运维项目 | 🔴 严格红线保护
+> 项目阶段：🚀 运维项目 | 🔴 严格红线保护 | 💾 记忆系统已启用
 
 ## 📊 项目状态
 
 **当前阶段**: 诊断问题 (1/5)
 **流程模式**: 🔴 严格模式（只允许修复，禁止改动）
+**记忆状态**: 🟢 自动保存已启用（变更全记录）
 
 ```
 🔎 诊断 → 👆 审批 → 🔧 修复 → ✔️ 验证 → 📦 输出
    ↑
  当前
+```
+
+## 💾 会话恢复
+
+**如果这是新会话，请先检查是否需要恢复上下文：**
+
+```
+运行 /project-optimizer:restore 恢复上次的上下文
+运行 /project-optimizer:history 查看变更历史
 ```
 
 ## 📋 阶段清单
@@ -111,6 +121,7 @@ htop / docker stats
 
 ## 🛠 可用命令
 
+### 流程命令
 ```bash
 /project-optimizer:status    # 查看当前状态
 /project-optimizer:diagnose  # 诊断问题
@@ -119,6 +130,23 @@ htop / docker stats
 /project-optimizer:verify    # 验证修复
 /project-optimizer:output    # 输出变更报告
 ```
+
+### 记忆命令
+```bash
+/project-optimizer:save      # 保存当前上下文到检查点
+/project-optimizer:restore   # 恢复上次的上下文
+/project-optimizer:history   # 查看变更历史和时间线
+/project-optimizer:decision  # 记录变更决策
+/project-optimizer:evolve    # 更新 CLAUDE.md 配置
+```
+
+## 🧠 变更决策记录
+
+[变更决策将自动记录，便于审计追溯]
+
+## 📝 上下文摘要
+
+[诊断上下文将在诊断完成时自动保存]
 
 ---
 

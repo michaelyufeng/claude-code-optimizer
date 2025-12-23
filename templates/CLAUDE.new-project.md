@@ -1,16 +1,26 @@
 # [项目名称]
 
-> 项目阶段：🆕 新项目 | 强制流程规划中
+> 项目阶段：🆕 新项目 | 强制流程规划中 | 💾 记忆系统已启用
 
 ## 📊 项目状态
 
 **当前阶段**: 研究阶段 (1/9)
 **流程模式**: 🔐 强制顺序（必须完成当前步骤才能进入下一步）
+**记忆状态**: 🟢 自动保存已启用
 
 ```
 🔍 研究 → 📝 规划 → 🚧 Gate1 → 🏗️ 架构 → 🎨 原型 → ✅ Gate2 → ⚙️ 后端 → 🔗 集成 → 📦 输出
    ↑
  当前
+```
+
+## 💾 会话恢复
+
+**如果这是新会话，请先检查是否需要恢复上下文：**
+
+```
+运行 /project-optimizer:restore 恢复上次的上下文
+运行 /project-optimizer:history 查看会话历史
 ```
 
 ## 📋 阶段清单
@@ -56,6 +66,7 @@
 
 ## 🛠 可用命令
 
+### 流程命令
 ```bash
 /project-optimizer:status      # 查看当前状态
 /project-optimizer:research    # 研究阶段
@@ -68,3 +79,27 @@
 /project-optimizer:integration # 集成阶段
 /project-optimizer:output      # 输出阶段
 ```
+
+### 记忆命令
+```bash
+/project-optimizer:save        # 保存当前上下文到检查点
+/project-optimizer:restore     # 恢复上次的上下文
+/project-optimizer:history     # 查看会话历史和时间线
+/project-optimizer:decision    # 记录关键决策
+/project-optimizer:evolve      # 更新 CLAUDE.md 配置
+```
+
+### 高级命令
+```bash
+/project-optimizer:split-task  # 拆分复杂任务
+/project-optimizer:agents      # 多 Agent 协作
+/project-optimizer:context     # 上下文管理
+```
+
+## 🧠 关键决策记录
+
+[决策将在项目进行中自动记录]
+
+## 📝 上下文摘要
+
+[上下文将在阶段完成时自动更新]

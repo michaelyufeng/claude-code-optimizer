@@ -39,6 +39,15 @@
 - 用户确认后再开发后端
 - 重做成本极低
 
+### 💾 项目记忆系统
+
+跨会话上下文持久化，项目状态与 CLAUDE.md 随项目演进自动更新：
+
+- **检查点保存** - 自动保存项目状态和上下文
+- **会话恢复** - 新会话自动检测并恢复上次进度
+- **决策记录** - 关键决策自动记录，便于追溯
+- **配置演进** - CLAUDE.md 随项目进展自动更新
+
 ## 安装
 
 ```bash
@@ -119,18 +128,51 @@ Claude: 🔒 当前处于【研究阶段】(1/9)
 
 ```
 project/
-├── CLAUDE.md              # 项目配置
+├── CLAUDE.md                  # 项目配置（自动演进）
 ├── .claude/
-│   └── PROJECT_STATE.json # 进度追踪
+│   ├── PROJECT_STATE.json     # 进度追踪
+│   └── PROJECT_MEMORY/        # 记忆系统
+│       ├── state.json         # 当前状态
+│       ├── checkpoints/       # 检查点历史
+│       ├── decisions/         # 决策记录
+│       ├── context/           # 上下文片段
+│       └── sessions/          # 会话历史
 └── docs/
-    ├── RESEARCH.md        # 研究报告
-    ├── PRD.md             # 产品需求文档
-    ├── ARCHITECTURE.md    # 架构设计
-    ├── API.md             # API 文档
-    ├── DATABASE.md        # 数据库设计
-    ├── GATE1_REVIEW.md    # Gate 1 审核报告
-    ├── GATE2_REVIEW.md    # Gate 2 审核报告
-    └── PROJECT_SUMMARY.md # 项目总结
+    ├── RESEARCH.md            # 研究报告
+    ├── PRD.md                 # 产品需求文档
+    ├── ARCHITECTURE.md        # 架构设计
+    ├── API.md                 # API 文档
+    ├── DATABASE.md            # 数据库设计
+    ├── GATE1_REVIEW.md        # Gate 1 审核报告
+    ├── GATE2_REVIEW.md        # Gate 2 审核报告
+    └── PROJECT_SUMMARY.md     # 项目总结
+```
+
+## 记忆系统命令
+
+```bash
+/project-optimizer:save        # 保存当前上下文到检查点
+/project-optimizer:restore     # 恢复上次的上下文
+/project-optimizer:history     # 查看会话历史和时间线
+/project-optimizer:decision    # 记录关键决策
+/project-optimizer:evolve      # 更新 CLAUDE.md 配置
+```
+
+### 会话恢复示例
+
+```
+# 新会话开始时自动提示
+🔔 检测到进行中的项目！
+
+📋 上次会话信息：
+- 时间: 2024-12-15 14:30
+- 阶段: 架构阶段 (4/9)
+- 任务: 设计用户认证 API
+
+是否恢复上次的上下文？
+[1] ✅ 恢复并继续 (推荐)
+[2] 📋 查看详情后决定
+[3] 🆕 从头开始
 ```
 
 ## 设计理念
