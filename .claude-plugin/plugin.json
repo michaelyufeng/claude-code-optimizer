@@ -1,7 +1,7 @@
 {
   "name": "project-optimizer",
-  "description": "Minimal Claude Code enhancement - persistent memory via CLAUDE.md diary system",
-  "version": "3.0.0",
+  "description": "Auto-pilot project development - 4-phase workflow, multi-agent, dual memory, Gate quality control",
+  "version": "1.0.2",
   "author": {
     "name": "michaelyufeng"
   },
@@ -9,9 +9,10 @@
   "license": "MIT",
   "keywords": [
     "claude-code",
-    "optimization",
+    "autopilot",
     "workflow",
-    "templates",
+    "multi-agent",
+    "memory",
     "productivity"
   ]
 }
