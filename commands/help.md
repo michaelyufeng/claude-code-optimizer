@@ -4,7 +4,7 @@ description: Help and command reference
 
 # 帮助 (Help)
 
-v1.0.6 命令参考和使用指南。
+v1.0.7 命令参考和使用指南。
 
 ## 命令列表
 
@@ -274,7 +274,7 @@ project/
 ## 版本信息
 
 ```
-Claude Code Optimizer v1.0.6
+Claude Code Optimizer v1.0.7
 
 特性:
 - 6 阶段自动驾驶流程 (研究→规划→架构→开发→测试→部署)

@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-blue)](https://claude.com/blog/claude-code-plugins)
-[![Version](https://img.shields.io/badge/version-1.0.6-green.svg)](https://github.com/michaelyufeng/claude-code-optimizer)
+[![Version](https://img.shields.io/badge/version-1.0.7-green.svg)](https://github.com/michaelyufeng/claude-code-optimizer)
 
 ## 核心理念
 
@@ -303,6 +303,7 @@ your-project/
 
 ## 版本历史
 
+- **v1.0.7** - 开发中项目工作流、代码扫描、增量开发模式
 - **v1.0.6** - 清理废弃命令、优化项目结构
 - **v1.0.5** - 6 阶段流程、3 道 Gate、灵活模式（--phase, --type）
 - **v1.0.4** - 任务分离、自动检测离线变更

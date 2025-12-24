@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Auto-pilot project development - 6-phase workflow, multi-agent, 3 gates, flexible mode",
-    "version": "1.0.6"
+    "version": "1.0.7"
   },
   "plugins": [
     {
       "name": "project-optimizer",
       "source": "./",
       "description": "Auto-pilot project development - 6-phase workflow, multi-agent, 3 gates, flexible mode",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "author": {
         "name": "michaelyufeng"
       },
