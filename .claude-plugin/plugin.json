@@ -1,7 +1,7 @@
 {
   "name": "project-optimizer",
   "description": "Auto-pilot project development - 6-phase workflow, multi-agent, 3 gates, flexible mode",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": {
     "name": "michaelyufeng"
   },
