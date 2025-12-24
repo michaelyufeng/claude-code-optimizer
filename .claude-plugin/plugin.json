@@ -1,7 +1,7 @@
 {
   "name": "project-optimizer",
-  "description": "Auto-pilot project development - 4-phase workflow, multi-agent, task tracking, auto-detect changes",
-  "version": "1.0.4",
+  "description": "Auto-pilot project development - 6-phase workflow, multi-agent, 3 gates, flexible mode",
+  "version": "1.0.5",
   "author": {
     "name": "michaelyufeng"
   },
@@ -13,6 +13,8 @@
     "workflow",
     "multi-agent",
     "memory",
-    "productivity"
+    "gate",
+    "testing",
+    "deployment"
   ]
 }
