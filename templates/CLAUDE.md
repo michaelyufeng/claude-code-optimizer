@@ -1,6 +1,6 @@
 # {{PROJECT_NAME}}
 
-> 初始化: {{DATE}}
+> 初始化: {{DATE}} | 版本: 1.0.0
 
 ## 项目概述
 
@@ -36,11 +36,21 @@
 
 ---
 
-## Memory
+## 任务追踪
 
-> 此区域由 /diary 自动更新，/reflect 定期整理
+**详见**: `.claude/TASKS.md`
 
-<!-- 最新会话记录会追加在此 -->
+此文件仅记录影响全局的重大决策，日常任务状态请查看 TASKS.md。
 
 ---
-*由 /project-optimizer:init 生成 | 使用 /diary 记录 | 使用 /reflect 整理*
+
+## Memory
+
+> 仅记录影响全局的重大决策，日常任务追踪见 `.claude/TASKS.md`
+
+### {{DATE}} - 项目初始化
+- **创建**: 项目初始化完成
+- **技术栈**: {{LANGUAGE}} + {{FRAMEWORK}}
+
+---
+*由 /project-optimizer:start 生成 | 任务追踪: .claude/TASKS.md | 长期记忆: docs/HISTORY.md*

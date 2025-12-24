@@ -1,10 +1,19 @@
 ---
-description: Sync CLAUDE.md with codebase changes automatically
+description: Sync CLAUDE.md and TASKS.md with codebase changes automatically
 ---
 
 # 同步系统 (Sync)
 
-自动同步 CLAUDE.md 和项目代码，确保文档与实现一致。
+自动同步项目文件和任务追踪系统，确保状态一致。
+
+## 同步范围
+
+| 文件 | 同步内容 | 触发时机 |
+|------|----------|----------|
+| `.claude/TASKS.md` | 任务状态、会话日志 | 实时 |
+| `.claude/LAST_SYNC.json` | 同步点、变更记录 | 每次同步 |
+| `CLAUDE.md` | 项目结构、技术栈 | 阶段完成时 |
+| `docs/HISTORY.md` | 长期记忆 | reflect 时 |
 
 ## 自动驾驶行为
 
@@ -14,6 +23,7 @@ description: Sync CLAUDE.md with codebase changes automatically
 - 代码变更时
 - Git 操作后
 - 依赖更新后
+- **恢复会话时** (自动检测离线变更)
 
 ---
 
@@ -185,6 +195,66 @@ src/
 /project-optimizer:sync --check      # 仅检查不同步
 /project-optimizer:sync --force      # 强制全量同步
 /project-optimizer:sync --history    # 查看同步历史
+/project-optimizer:sync --detect     # 检测离线变更 (等同于 /detect)
+```
+
+---
+
+## 离线变更检测
+
+### 检测机制
+
+当用户在 Claude 之外修改代码时，系统会在恢复会话时检测:
+
+```
+🔍 离线变更检测
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 检测方法
+
+1. 读取 .claude/LAST_SYNC.json
+   - 上次同步的 commit hash
+   - 上次追踪的文件列表
+
+2. 执行 Git 检测
+   - git diff [lastCommit]..HEAD
+   - git status --porcelain
+
+3. 对比分析
+   - 哪些变更在任务追踪中
+   - 哪些变更是用户手动添加
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### 变更分类
+
+| 类型 | 描述 | 处理方式 |
+|------|------|----------|
+| 已追踪 | 任务相关文件的修改 | 更新任务备注 |
+| 未追踪 | 用户手动添加的文件 | 创建新任务或关联 |
+| 冲突 | 已完成任务的文件被修改 | 警告并确认 |
+
+### 同步选项
+
+```
+⚠️ 检测到 3 个离线变更
+
+[1] 🔄 自动同步 (推荐)
+    - 智能关联到现有任务
+    - 为新文件创建任务
+
+[2] ➕ 手动处理
+    - 逐个确认每个变更
+    - 自定义任务关联
+
+[3] ⏭️ 跳过同步
+    - 记录但不处理
+    - 稍后可再次同步
+
+[4] 🔍 查看详情
+    - 显示具体改动内容
 ```
 
 ---

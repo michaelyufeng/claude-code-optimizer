@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "lastSyncAt": "{{TIMESTAMP}}",
+  "lastCommit": "{{COMMIT_HASH}}",
+  "currentPhase": "{{PHASE}}",
+  "trackedFiles": {
+    "description": "任务相关的文件列表",
+    "files": []
+  },
+  "taskSnapshot": {
+    "description": "同步时的任务状态快照",
+    "completed": [],
+    "inProgress": [],
+    "pending": []
+  },
+  "userChanges": {
+    "description": "用户手动变更记录",
+    "history": []
+  },
+  "syncHistory": {
+    "description": "同步历史记录",
+    "records": [
+      {
+        "syncAt": "{{TIMESTAMP}}",
+        "type": "initial",
+        "changes": 0,
+        "description": "项目初始化"
+      }
+    ]
+  }
+}

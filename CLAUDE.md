@@ -27,9 +27,10 @@ claude-code-optimizer/
 ├── .claude-plugin/       # 插件配置
 │   ├── plugin.json
 │   └── marketplace.json
-├── commands/             # 12 个核心命令
-│   ├── start.md         # 自动驾驶入口
-│   ├── status.md        # 状态查看
+├── commands/             # 14 个核心命令
+│   ├── start.md         # 自动驾驶入口 (含自动检测)
+│   ├── status.md        # 状态查看 (含变更提示)
+│   ├── detect.md        # 变更检测 (新增)
 │   ├── research.md      # 研究阶段
 │   ├── plan.md          # 规划阶段
 │   ├── arch.md          # 架构阶段
@@ -37,21 +38,34 @@ claude-code-optimizer/
 │   ├── gate.md          # 阶段门控
 │   ├── agents.md        # Agent 管理
 │   ├── split.md         # 任务分割
-│   ├── diary.md         # 短期记忆
+│   ├── diary.md         # 短期记忆 → TASKS.md
 │   ├── reflect.md       # 长期记忆
-│   ├── sync.md          # 同步系统
-│   ├── help.md          # 帮助
-│   └── _deprecated/     # 废弃命令
+│   ├── sync.md          # 同步系统 (含离线检测)
+│   └── help.md          # 帮助
 ├── templates/
-│   └── CLAUDE.md        # 项目模板
+│   ├── CLAUDE.md        # 项目配置模板
+│   ├── TASKS.md         # 任务追踪模板
+│   └── LAST_SYNC.json   # 同步追踪模板 (新增)
 └── README.md
+
+# 使用时生成的文件结构
+project/
+├── .claude/
+│   ├── PROJECT_STATE.json   # 阶段状态、Agent
+│   ├── TASKS.md             # 任务追踪、会话日志
+│   └── LAST_SYNC.json       # 同步追踪 (新增)
+├── CLAUDE.md                # 项目规则、重大决策
+└── docs/
+    └── HISTORY.md           # 长期记忆归档
 ```
 
 ## 命令一览
 
 ### 自动驾驶
 - `/start` - 启动自动驾驶
-- `/status` - 查看状态
+- `/start --resume` - 恢复 (含自动检测)
+- `/status` - 查看状态 (含变更提示)
+- `/detect` - 检测离线变更
 
 ### 阶段流程
 - `/research` - 研究阶段
@@ -84,7 +98,36 @@ claude-code-optimizer/
 
 ---
 
+## 任务追踪
+
+**详见**: `.claude/TASKS.md` (独立任务追踪文件)
+
+此文件仅记录影响全局的重大决策。
+
+---
+
 ## Memory
+
+### 2025-12-24 11:00 - v1.0.4 自动检测机制
+- **完成**: Phase 2 自动检测用户离线变更
+- **新增**:
+  - `commands/detect.md` - 变更检测命令
+  - `templates/LAST_SYNC.json` - 同步追踪模板
+  - `/start --resume` 自动检测离线变更
+  - `/status` 显示未同步变更警告
+- **修改文件**:
+  - `commands/start.md` - 添加恢复时自动检测
+  - `commands/sync.md` - 添加离线变更检测
+  - `commands/status.md` - 添加变更提示
+- **设计原则**: 即使用户绕过工作流，Claude 也能感知变更
+
+### 2025-12-24 10:30 - v1.0.3 任务分离架构
+- **完成**: Phase 1 任务文件分离
+- **新增**:
+  - `.claude/TASKS.md` - 独立任务追踪文件
+  - 任务状态、会话日志、问题追踪分离到 TASKS.md
+  - CLAUDE.md 只保留项目规则和重大决策
+- **设计原则**: 文件职责分离，任务追踪独立
 
 ### 2025-12-23 23:00 - v1.0.2 完整重构
 - **完成**: 从 v3.0 极简版恢复为 v1.0.2 完整版
@@ -96,7 +139,6 @@ claude-code-optimizer/
   - Gate 质量门控
   - 选项驱动开发
 - **命令数**: 6 → 12 个
-- **设计原则**: 保留核心开发流程，恢复项目开发意义
 
 ### 2025-12-23 21:00 - v3.0 极简版
 - **问题**: 精简过度，失去项目开发意义
@@ -107,4 +149,4 @@ claude-code-optimizer/
 - **功能**: 强制阶段工作流、智能评估系统
 
 ---
-*由 /project-optimizer:start 启动 | 使用 /diary 记录 | 使用 /reflect 整理*
+*由 /project-optimizer:start 启动 | 任务追踪: .claude/TASKS.md | 长期记忆: docs/HISTORY.md*

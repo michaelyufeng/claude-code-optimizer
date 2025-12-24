@@ -11,6 +11,17 @@ description: Development phase - implementation with task splitting and multi-ag
 - Gate 3 已通过
 - 架构设计已完成
 
+## 任务追踪
+
+**所有任务状态实时更新到 `.claude/TASKS.md`**
+
+| 操作 | 更新位置 |
+|------|----------|
+| 开始任务 | TASKS.md → 活跃任务 → 进行中 |
+| 完成任务 | TASKS.md → 已完成任务 |
+| 发现问题 | TASKS.md → 发现的问题 |
+| 日志记录 | TASKS.md → 会话日志 |
+
 ## 当前 Agent
 
 ```
@@ -26,6 +37,8 @@ description: Development phase - implementation with task splitting and multi-ag
 
 ### Step 1: 任务分解
 
+**任务列表自动写入 `.claude/TASKS.md`**
+
 ```
 💻 [开发者] 任务分解
 
@@ -34,6 +47,8 @@ description: Development phase - implementation with task splitting and multi-ag
 ## 开发任务列表
 
 基于 PRD 和架构设计，自动生成开发任务:
+
+📝 任务列表将写入 .claude/TASKS.md
 
 ### 基础设施 (Infrastructure)
 | ID | 任务 | 规模 | 状态 |
@@ -150,6 +165,10 @@ description: Development phase - implementation with task splitting and multi-ag
 
 任务 I1 完成！
 
+📝 已更新 .claude/TASKS.md:
+   - I1 移动到 "已完成任务"
+   - 添加会话日志: "完成 I1 项目初始化"
+
 [1] ▶️ 继续下一个任务
 [2] 📋 查看变更
 [3] 🔄 重做此任务
@@ -225,31 +244,74 @@ description: Development phase - implementation with task splitting and multi-ag
 
 按照架构设计生成的所有代码文件。
 
-### 更新 CLAUDE.md
+### 更新 .claude/TASKS.md
+
+开发阶段完成后，TASKS.md 最终状态:
 
 ```markdown
-## 开发状态
+# [项目名称] - 任务追踪
 
-当前阶段: 开发完成
-完成功能:
-- ✅ 用户注册/登录
-- ✅ 核心功能1
-- ✅ 核心功能2
+> 创建于: [日期] | 阶段: 开发完成
 
-## 已知问题
+## 当前状态
 
-- [ ] [问题1] - [优先级]
-- [ ] [问题2] - [优先级]
+阶段: [✅ 研究] → [✅ 规划] → [✅ 架构] → [✅ 开发]
+进度: ████████████████████ 100%
+Agent: 💻 开发者
+
+---
+
+## 活跃任务
+
+### 进行中
+
+(无)
+
+### 待处理
+
+(无)
+
+---
+
+## 已完成任务
+
+| ID | 任务 | 完成时间 | 耗时 | 产出 |
+|----|------|----------|------|------|
+| I1 | 项目初始化 | 12-23 14:00 | 10min | 目录结构 |
+| I2 | 数据库配置 | 12-23 14:15 | 15min | db.ts |
+| F1 | 用户注册 | 12-23 15:00 | 30min | auth/register.ts |
+| F2 | 用户登录 | 12-23 15:30 | 25min | auth/login.ts |
+| ... | ... | ... | ... | ... |
+
+---
+
+## 发现的问题
+
+| ID | 问题描述 | 发现时间 | 状态 | 关联任务 |
+|----|----------|----------|------|----------|
+| #1 | 缺少输入验证 | 12-23 15:20 | ✅ 已修复 | F1 |
+
+---
+
+## 统计
+
+- 总任务数: 8
+- 已完成: 8
+- 进行中: 0
+- 待处理: 0
+- 问题数: 1 (已修复)
 ```
 
-### 更新 Memory
+### 更新 CLAUDE.md (仅重大事项)
 
 ```markdown
+## Memory
+
 ### [日期] - 开发阶段完成
 - **完成**: 所有功能开发、测试、代码审核
 - **代码量**: [X] 文件, [Y] 行
 - **测试覆盖**: [Z]%
-- **待优化**: [问题列表]
+- **详情**: 见 .claude/TASKS.md
 ```
 
 ---
