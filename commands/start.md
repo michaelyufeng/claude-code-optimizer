@@ -26,7 +26,8 @@ description: Auto-pilot mode - one command to drive the entire project
 - `deploy` - 从部署阶段开始
 
 **--type** 项目类型预设:
-- `new` - 新项目，完整 6 阶段流程
+- `new` - 新项目，完整 6 阶段流程 (research → plan → arch → dev → test → deploy)
+- `developing` - 开发中项目，增量开发模式 (analyze → update-plan → continue-dev → verify) ⭐ v1.0.7
 - `existing` - 已有项目，从架构阶段开始
 - `maintenance` - 维护项目，从开发阶段开始
 
@@ -87,9 +88,10 @@ description: Auto-pilot mode - one command to drive the entire project
    → 提示用户确认（跳过的阶段产出需手动准备）
 
 3. 如果包含 `--type [类型]`:
-   - `new` → 完整 6 阶段
-   - `existing` → 从架构开始
-   - `maintenance` → 从开发开始
+   - `new` → 完整 6 阶段 (适用于全新项目)
+   - `developing` → 4 阶段增量开发 (适用于开发中项目，完成度 30-80%) ⭐ v1.0.7
+   - `existing` → 从架构开始 (适用于有基础但需重新规划的项目)
+   - `maintenance` → 从开发开始 (适用于成熟项目的维护)
 
 4. 无参数或仅有项目描述:
    → 询问项目类型，执行完整流程

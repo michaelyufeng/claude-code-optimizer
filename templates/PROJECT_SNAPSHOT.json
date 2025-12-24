@@ -1,0 +1,66 @@
+{
+  "version": "1.0.7",
+  "description": "Project snapshot for in-progress and maintenance projects",
+  "projectName": "{{projectName}}",
+  "projectType": "{{projectType}}",
+  "snapshotTime": "{{timestamp}}",
+  "projectState": {
+    "workMode": "{{workMode}}",
+    "currentPhase": "{{currentPhase}}",
+    "progress": "{{progress}}",
+    "lastActivity": "{{lastActivity}}"
+  },
+  "codebaseAnalysis": {
+    "totalFiles": 0,
+    "totalLines": 0,
+    "languages": {},
+    "structure": {
+      "src": {},
+      "tests": {},
+      "docs": {},
+      "config": {}
+    },
+    "dependencies": {
+      "production": [],
+      "development": []
+    }
+  },
+  "functionalCompleteness": {
+    "estimatedCompletion": "{{estimatedCompletion}}%",
+    "coreFeatures": {
+      "implemented": [],
+      "inProgress": [],
+      "planned": []
+    },
+    "technicalDebt": {
+      "critical": [],
+      "important": [],
+      "nice-to-have": []
+    }
+  },
+  "gitAnalysis": {
+    "branch": "{{currentBranch}}",
+    "totalCommits": 0,
+    "recentCommits": [],
+    "uncommittedChanges": {
+      "modified": [],
+      "added": [],
+      "deleted": []
+    },
+    "contributorActivity": {
+      "lastCommitDate": "{{lastCommitDate}}",
+      "commitFrequency": "{{commitFrequency}}"
+    }
+  },
+  "restrictions": {
+    "preserveStructure": true,
+    "backwardCompatibility": true,
+    "noBreakingChanges": true,
+    "redlines": []
+  },
+  "recommendedWorkflow": {
+    "suggestedMode": "{{suggestedMode}}",
+    "suggestedPhase": "{{suggestedPhase}}",
+    "nextSteps": []
+  }
+}
