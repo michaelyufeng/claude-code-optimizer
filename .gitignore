@@ -3,10 +3,13 @@
 .AppleDouble
 .LSOverride
 
-# Claude Code local files (in user projects, not this repo)
+# Claude Code local files (runtime state, not part of plugin)
 # CLAUDE.local.md
 # CHECKPOINT.md
 .claude/settings.local.json
+.claude/PROJECT_STATE.json
+.claude/TASKS.md
+.claude/LAST_SYNC.json
 
 # IDE
 .idea/

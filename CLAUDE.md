@@ -1,17 +1,18 @@
 # Claude Code Optimizer
 
-> 初始化: 2025-12-23 | 版本: 1.0.2
+> 初始化: 2025-12-23 | 版本: 1.0.5
 
 ## 项目概述
 
 Claude Code 自动驾驶开发插件。一次启动，全程跟踪项目开发。
 
 核心特性：
-- 4 阶段流程：研究 → 规划 → 架构 → 开发
+- 6 阶段流程：研究 → 规划 → 架构 → 开发 → 测试 → 部署
+- 3 道 Gate 门控：Gate 1 (规划→架构)、Gate 2 (开发→测试)、Gate 3 (测试→部署)
+- 灵活模式：支持 --phase 阶段跳转、--type 项目类型预设
 - 全自动 Agent 分配
 - 任务自动分割
 - 双记忆系统（短期 + 长期）
-- Gate 质量门控
 - 选项驱动（禁止无方向编码）
 
 ## 技术栈
@@ -27,15 +28,17 @@ claude-code-optimizer/
 ├── .claude-plugin/       # 插件配置
 │   ├── plugin.json
 │   └── marketplace.json
-├── commands/             # 14 个核心命令
-│   ├── start.md         # 自动驾驶入口 (含自动检测)
+├── commands/             # 16 个核心命令
+│   ├── start.md         # 自动驾驶入口 (--phase, --type, --resume)
 │   ├── status.md        # 状态查看 (含变更提示)
-│   ├── detect.md        # 变更检测 (新增)
+│   ├── detect.md        # 变更检测
 │   ├── research.md      # 研究阶段
 │   ├── plan.md          # 规划阶段
 │   ├── arch.md          # 架构阶段
 │   ├── dev.md           # 开发阶段
-│   ├── gate.md          # 阶段门控
+│   ├── test.md          # 测试阶段 (新增)
+│   ├── deploy.md        # 部署阶段 (新增)
+│   ├── gate.md          # 阶段门控 (3 道 Gate)
 │   ├── agents.md        # Agent 管理
 │   ├── split.md         # 任务分割
 │   ├── diary.md         # 短期记忆 → TASKS.md
@@ -64,15 +67,19 @@ project/
 ### 自动驾驶
 - `/start` - 启动自动驾驶
 - `/start --resume` - 恢复 (含自动检测)
+- `/start --phase [阶段]` - 从指定阶段开始
+- `/start --type [类型]` - 项目类型预设 (new/existing/maintenance)
 - `/status` - 查看状态 (含变更提示)
 - `/detect` - 检测离线变更
 
-### 阶段流程
+### 阶段流程 (6 阶段)
 - `/research` - 研究阶段
 - `/plan` - 规划阶段
 - `/arch` - 架构阶段
 - `/dev` - 开发阶段
-- `/gate` - 门控检查
+- `/test` - 测试阶段
+- `/deploy` - 部署阶段
+- `/gate` - 门控检查 (Gate 1/2/3)
 
 ### Agent 与任务
 - `/agents` - Agent 管理
@@ -87,9 +94,14 @@ project/
 
 ### 自动驾驶规则
 - 必须通过 Gate 才能进入下一阶段
-- 禁止跳过阶段
+- 可通过 --phase 或 --type 灵活跳转阶段
 - 禁止无方向编码
 - 所有决策必须提供选项
+
+### Gate 检查点
+- Gate 1 (规划→架构): PRD 完整性、需求可行性
+- Gate 2 (开发→测试): 代码质量、功能完整性
+- Gate 3 (测试→部署): 测试覆盖率 ≥ 80%、安全审计
 
 ### 记忆规则
 - 短期记忆最多 10 条
@@ -107,6 +119,25 @@ project/
 ---
 
 ## Memory
+
+### 2025-12-24 12:30 - v1.0.5 6 阶段 + 灵活模式
+- **完成**: 重构为 6 阶段流程，添加灵活模式
+- **背景**: 对比旧版 9 阶段、行业 SDLC 标准、GitHub AI Agent 最佳实践
+- **新增**:
+  - `commands/test.md` - 独立测试阶段
+  - `commands/deploy.md` - 独立部署阶段
+  - `--phase` 参数 - 阶段跳转 (research/plan/arch/dev/test/deploy)
+  - `--type` 参数 - 项目类型预设 (new/existing/maintenance)
+  - 3 道 Gate 门控 (规划→架构、开发→测试、测试→部署)
+- **修改文件**:
+  - `commands/start.md` - 添加 --phase, --type 参数
+  - `commands/gate.md` - 3 道 Gate 检查
+  - `commands/status.md` - 适配 6 阶段
+  - `commands/help.md` - 更新命令列表
+- **设计原则**:
+  - 新项目: 完整 6 阶段
+  - 已有项目: 可跳过早期阶段
+  - 维护项目: 直接从开发或测试开始
 
 ### 2025-12-24 11:00 - v1.0.4 自动检测机制
 - **完成**: Phase 2 自动检测用户离线变更
