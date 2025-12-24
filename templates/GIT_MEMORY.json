@@ -1,0 +1,55 @@
+{
+  "version": "2.0",
+  "description": "Git-based memory system configuration",
+  "memoryCommits": {
+    "autoCommit": true,
+    "commitMessage": "[{phase}][{agent}] {task}\n\n{details}\n\n🧠 Memory Snapshot:\n- Progress: {progress}%\n- Next: {nextTask}\n- Issues: {issues}",
+    "triggers": [
+      "task_complete",
+      "gate_pass",
+      "phase_complete",
+      "manual_commit"
+    ],
+    "includeSnapshot": true,
+    "snapshotFields": [
+      "currentPhase",
+      "progress",
+      "activeTasks",
+      "completedTasks",
+      "issues",
+      "nextSteps"
+    ]
+  },
+  "contextRecovery": {
+    "enabled": true,
+    "commitDepth": 10,
+    "autoRecover": true,
+    "includeUncommitted": true,
+    "sources": [
+      "git-commits",
+      "git-diff",
+      "claude-context",
+      "hierarchy-docs"
+    ],
+    "tokenBudget": 10000
+  },
+  "branchStrategy": {
+    "experimentBranches": true,
+    "namingPattern": "experiment/{description}",
+    "autoCleanup": true,
+    "cleanupAfterDays": 7,
+    "protectedBranches": ["main", "master", "develop"]
+  },
+  "diffTracking": {
+    "enabled": true,
+    "trackUncommitted": true,
+    "conflictDetection": true,
+    "autoResolution": false
+  },
+  "memoryIndex": {
+    "lastCommit": null,
+    "totalCommits": 0,
+    "memoryNodes": [],
+    "branches": []
+  }
+}

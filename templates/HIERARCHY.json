@@ -1,0 +1,141 @@
+{
+  "version": "2.0",
+  "description": "Hierarchical documentation system for large codebases",
+  "projectName": "{{projectName}}",
+  "createdAt": "{{timestamp}}",
+  "hierarchy": [
+    {
+      "level": 1,
+      "path": "CLAUDE.md",
+      "scope": "global",
+      "priority": "high",
+      "description": "Project-wide rules, tech stack, and core conventions",
+      "estimatedTokens": 2000,
+      "autoLoad": true,
+      "tags": ["global", "architecture", "conventions"]
+    },
+    {
+      "level": 2,
+      "path": "src/CLAUDE.md",
+      "scope": "module",
+      "priority": "high",
+      "description": "Source code organization and structure",
+      "estimatedTokens": 1500,
+      "autoLoad": true,
+      "parent": "CLAUDE.md",
+      "tags": ["source", "structure"]
+    },
+    {
+      "level": 3,
+      "path": "src/api/CLAUDE.md",
+      "scope": "submodule",
+      "priority": "medium",
+      "description": "API design, routing, and authentication",
+      "estimatedTokens": 1000,
+      "autoLoad": "context-aware",
+      "parent": "src/CLAUDE.md",
+      "tags": ["api", "routing", "auth"]
+    },
+    {
+      "level": 3,
+      "path": "src/database/CLAUDE.md",
+      "scope": "submodule",
+      "priority": "medium",
+      "description": "Database schema, models, and queries",
+      "estimatedTokens": 1000,
+      "autoLoad": "context-aware",
+      "parent": "src/CLAUDE.md",
+      "tags": ["database", "models", "queries"]
+    },
+    {
+      "level": 2,
+      "path": "tests/CLAUDE.md",
+      "scope": "module",
+      "priority": "medium",
+      "description": "Testing strategy and best practices",
+      "estimatedTokens": 800,
+      "autoLoad": "context-aware",
+      "parent": "CLAUDE.md",
+      "tags": ["testing", "qa"]
+    }
+  ],
+  "autoLoad": {
+    "enabled": true,
+    "maxDepth": 3,
+    "strategy": "context-aware",
+    "strategies": {
+      "always": "Always load this doc",
+      "context-aware": "Load when working in this directory",
+      "on-demand": "Load only when explicitly requested"
+    }
+  },
+  "contextAssembly": {
+    "order": [
+      "active-context",
+      "global-docs",
+      "current-module",
+      "parent-modules",
+      "git-memory"
+    ],
+    "tokenBudget": 10000,
+    "priorities": {
+      "active-context": {
+        "file": ".claude/CONTEXT.md",
+        "maxTokens": 2000,
+        "priority": 1
+      },
+      "global-docs": {
+        "files": ["CLAUDE.md"],
+        "maxTokens": 2000,
+        "priority": 2
+      },
+      "current-module": {
+        "pattern": "{currentDir}/CLAUDE.md",
+        "maxTokens": 1500,
+        "priority": 3
+      },
+      "parent-modules": {
+        "pattern": "{parentDirs}/CLAUDE.md",
+        "maxTokens": 1000,
+        "priority": 4
+      },
+      "git-memory": {
+        "source": "git-commits",
+        "commitDepth": 10,
+        "maxTokens": 3500,
+        "priority": 5
+      }
+    }
+  },
+  "navigation": {
+    "currentDirectory": null,
+    "activeModules": [],
+    "loadedDocs": []
+  },
+  "templates": {
+    "global": {
+      "path": "templates/CLAUDE.global.md",
+      "description": "Template for root-level CLAUDE.md"
+    },
+    "module": {
+      "path": "templates/CLAUDE.module.md",
+      "description": "Template for module-level CLAUDE.md"
+    },
+    "submodule": {
+      "path": "templates/CLAUDE.submodule.md",
+      "description": "Template for submodule-level CLAUDE.md"
+    }
+  },
+  "validation": {
+    "maxFileSize": 5000,
+    "maxTokensPerDoc": 3000,
+    "requireDescription": true,
+    "checkDuplicates": true
+  },
+  "indexing": {
+    "enabled": true,
+    "updateOnSave": true,
+    "searchable": true,
+    "tags": true
+  }
+}
